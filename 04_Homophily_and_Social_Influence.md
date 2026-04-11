@@ -11,6 +11,9 @@ If you become happy, the effect ripples outward through the network:
 
 Beyond three degrees of separation, the influence generally fades out. This highlights the powerful extent of connectedness—the structure of the network facilitates the flow of emotions across long distances.
 
+**Calculating Total Network Influence:**
+Theoretically, the total number of people influenced across three degrees can be estimated by combining the average friends across three network levels (e.g., Level 1 + Level 2 + Level 3 connections). However, calculating this theoretical maximum (e.g. multiplying direct friends × their friends × their friends) often produces a number that **exceeds the population size**. This mathematical overshoot indicates that networks have **substantial overlap and strong network clustering effects**.
+
 ---
 
 ## 2. Homophily
@@ -34,6 +37,14 @@ The probability of selecting one node of A and one node of B is $p \times q$. Si
 > Suppose a high school consists of 60% boys ($p = 0.6$) and 40% girls ($q = 0.4$). 
 > Under random link formation, the expected fraction of boy-girl friendships is $2 \times 0.6 \times 0.4 = \mathbf{0.48}$ (or 48%). 
 > If we map the actual friendship network and find that only **10%** of friendships cross gender lines, this network exhibits very strong homophily (10% is much less than the expected 48%).
+
+### The Homophily Coefficient
+We can quantify the exact strength of homophily in a network using the **Homophily Coefficient**:
+$$ \text{Homophily Coefficient} = 1 - \frac{\text{Actual Cross-Type Friendships}}{\text{Expected Cross-Type Friendships}} $$
+
+**Case Study Validations:**
+1. **Majors:** If random formation is expected to produce 208 cross-major friendships (e.g., CS vs Business students), but only 78 exist in reality, the coefficient is $1 - (78 / 208) = 1 - 0.375 = \mathbf{0.625}$.
+2. **Gender:** If we observe 60 platonic cross-gender friendships but expect 118 based on random mixing, the coefficient is $1 - (60 / 118) = \mathbf{0.49}$.
 
 ---
 
@@ -63,6 +74,23 @@ $$ \text{Similarity}(A, B) = \frac{| \text{Articles edited by A} \cap \text{Arti
 
 If Editor A edits exactly the same set of articles as Editor B, the similarity is 1. If they edit completely distinct sets, the similarity is 0.
 
+### Quantifying the Magnitude of Effects
+By tracking a network longitudinally, we can calculate the exact proportion driven by each mechanism:
+- **Selection Effect Magnitude** = (Similarity at First Interaction) - (Baseline Pre-Interaction Similarity)
+- **Social Influence Effect Magnitude** = (Final/Plateau Similarity) - (Similarity at First Interaction)
+
+*Example:* If a baseline similarity is $0.14$, spikes to $0.31$ at first interaction, and plateaus at $0.48$ after a year:
+- Selection Effect = $0.31 - 0.14 = \mathbf{0.17}$
+- Social Influence Effect = $0.48 - 0.31 = \mathbf{0.17}$
+- **Ratio** = $0.17 / 0.17 = \mathbf{1.00}$ (meaning both mechanisms contribute equally).
+
+To determine whether cross-group friendships result from selection or influence, researchers examine similarity measures of pairs before and after friendship. A steep pre-interaction increase indicates Selection.
+
+### Friendship Pathways:
+- Pairs with **High Initial Similarity** follow a **selection-dominated** formation pathway.
+- Pairs with **Low Initial Similarity** (who converge to high similarity eventually) demonstrate an **influence-dominated** formation pathway.
+*Example of pure influence:* If 89% of new coffee drinkers already had at least two coffee-drinking friends prior to adopting the habit, it suggests habit adoption via social exposure.
+
 ---
 
 ## 4. Closure Mechanisms
@@ -90,12 +118,36 @@ Where $p$ is the baseline probability that any single common friend successfully
 
 ## 5. The Evolutionary Fatman Model (Code)
 
-To tie together **Selection**, **Social Influence**, and **Closure**, we can implement an evolutionary network model (often referred to in computational social science as the "Fatman Evolutionary Model", simulating the contagion of BMI/obesity markers or fitness behavior).
+To rigorously model how attributes like Body Mass Index (BMI) evolve alongside network topology, researchers use the **Fatman Evolutionary Model**. 
 
-In this Python model:
-1. People select friends with similar fitness levels (Selection).
-2. People form new friendships because of common friends (Closure).
-3. People's fitness levels adjust to match the average of their friends (Social Influence).
+### 1. Node Types & Visualization
+- **Person Nodes:** Visualized in blue. Size is proportional to BMI ($\text{Size} = \text{BMI} \times 20$). *Purpose:* Demonstrates homophily visually by making similarly-sized nodes more likely to connect.
+- **Social Foci Nodes:** Visualized in red with fixed size ($1000$). 
+*(Note: For a person with BMI 32, their size is 640. The ratio of foci size to this person size is $1000 / 640 = \mathbf{1.56}$.)*
 
-> The fully commented source code is available in: [`code/04_fatman_model.py`](code/04_fatman_model.py).
+### 2. Homophily Probability Formula
+The probability of a friendship forming through homophily is based on BMI similarity:
+$$ P(u,v) = \frac{1}{|BMI_u - BMI_v| + 1000} $$
+*Why add 1000?* It ensures probability remains inversely proportional to BMI diff, prevents division by zero, and scales probabilities down to allow for gradual network evolution.
+*(Example: For BMIs 22 and 28, diff is 6, probability is $1/1006 \approx \mathbf{0.00099}$)*
 
+### 3. Closure Probability Formula
+The probability of forming a connection through closure is:
+$$ P(\text{connection}) = 1 - (1 - p)^k $$
+- **$k$** represents the **total number of common neighbors** (combining mutual friends AND shared social foci).
+- Because $k$ accounts for both, **Triadic Closure** and **Focal Closure** are captured by the *exact same formula*.
+- **Membership Closure** occurs between a person and a social focus when they share a common person neighbor. 
+- *Constraints:* At least one of the connecting nodes must be a Person node. Closure cannot physically happen between two Foci nodes.
+*(Example: If $k=3$ and $p=0.1$, $P = 1 - (1 - 0.1)^3 = 1 - 0.729 = \mathbf{0.271}$)*
+
+### 4. Tracking Social Influence Indirectly
+Social influence is modeled **indirectly** through the mechanism of shared contexts (Social Foci), rather than direct peer-to-peer numerical averaging.
+- *Example:* When membership closure causes an individual to enroll in a gym (due to a friend), the individual begins losing weight (BMI drops by 1 point per iteration, bounded between 15 and 40). This demonstrates social influence via shared context.
+- What if Person X's friend Person Y goes to an eat-out restaurant, and X starts going too and gains BMI? This full sequence is: **Membership Closure** (X learns about the restaurant from Y) $\rightarrow$ **Social Influence** (X adopts the habit of going there and their BMI increases).
+
+### 5. Graph Dynamics and Snapshots
+- **Edge Persistence:** In this model, new edges only arrive with time; **existing edges are never deleted**. The theoretical implication is that network density monotonically increases, potentially masking the dynamic effects of social influence on attribute changes.
+- **Data Storage:** The model generates and saves network snapshots in separate **GML files** at each time step (rather than continuously updating one file). Separate snapshots preserve complete evolution history, enabling retrospective analysis of density changes and obesity patterns across time.
+- **Edge Math:** If the simulation starts with 100 people and 5 foci (each person perfectly assigned 1 focus $\rightarrow$ 100 initial edges). If Focal Closure adds 45 edges and Membership Closure adds 30 edges, the total edges = $100 + 45 + 30 = \mathbf{175}$.
+
+> The fully commented source code simulating these abstract principles is available in: [`code/04_fatman_model.py`](code/04_fatman_model.py).
