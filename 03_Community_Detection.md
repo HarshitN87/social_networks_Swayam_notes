@@ -15,11 +15,11 @@ To successfully identify independent communities, we naturally search for the we
 But how do we methodically find these edges? We analyze their "flow" and centrality.
 
 ### What is Edge Betweenness? *(Requested Definition)*
-**Edge Betweenness Centrality** is defined structurally as the number of **shortest paths** that pass through a particular target edge in the network.
+**Edge Betweenness Centrality** is a mathematical metric defined structurally as the total number of **shortest paths** that pass through a particular target edge in the network.
 
-Imagine all nodes trying to communicate with each other using the single most efficient route. An edge that securely connects two massive but completely distinct communities acts as an indispensable funnel. Every shortest path spanning Community 1 to Community 2 *must* forcibly flow across this single edge bridge. 
+To understand this intuitively, imagine a massive city where all nodes try to communicate with each other by sending physical mail using the single most efficient, shortest route. An edge that securely connects two massive but completely distinct communities acts as an indispensable local bridge or funnel. Every piece of mail sent from Community 1 to Community 2 *must* forcibly flow across this single, tight bottleneck. 
 
-Therefore, edges acting as community bottlenecks yield phenomenally high **betweenness** values.
+Therefore, edges acting as inter-community bridges experience the highest traffic volume, naturally yielding phenomenally high **betweenness** values. Edges located "deep" inside a densely connected community (intra-community edges) have very low betweenness, because traffic can spread out uniformly across many redundant neighboring paths instead of relying on a single connection.
 
 ## Girvan-Newman Algorithm
 The Girvan-Newman algorithm automates community detection elegantly using edge betweenness:

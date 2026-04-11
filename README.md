@@ -2,23 +2,23 @@
 
 This knowledge base organizes the raw notes into a structured study guide on **connectedness**, **weak ties**, **clustering**, and **community detection** in social and graph networks.
 
-## Folder Map
+## File Structure
 
-| Folder | Purpose |
+| File / Folder | Purpose |
 |---|---|
-| `01_graph_connectedness/` | Explains how connectedness emerges in random graphs and why the threshold is around `n log n` edge additions in the simplified lecture model. |
-| `02_social_networks/` | Covers Granovetter's strength of weak ties, triadic closure, clustering, embeddedness, closure, brokerage, and social capital. |
-| `03_community_detection/` | Explains communities, partitions, edge betweenness, and the Girvan-Newman algorithm. |
-| `coding/` | Contains corrected and commented NetworkX examples, including introductory functions and community-detection programs. |
+| `01_Emergence_of_Connectedness.md` | Explains how connectedness emerges in random graphs and why the phase transition threshold is around $n \ln n$ edge additions. |
+| `02_Strength_of_Weak_Ties.md` | Covers Granovetter's strength of weak ties, triadic closure, clustering coefficients, and the sociological importance of local bridges. |
+| `03_Community_Detection.md` | Explains communities, partitions, edge betweenness, and how the Girvan-Newman algorithm fragments a graph. |
+| `code/` | Contains corrected and commented Python NetworkX coding examples, including introductory functions and community-detection scripts. |
+| `images/` | Contains image assets used throughout the markdown documentation. |
 
-> **Key idea:** A network is not only a collection of nodes and edges. Its structure controls how information, opportunities, influence, and risk move through the system.
+> **Key idea:** A network is not only a collection of nodes and edges. Its structure controls how information, opportunities, influence, and risk move through the entire system.
 
 ---
 
 ## Suggested Reading Order
 
-1. Start with [`01_graph_connectedness/emergence_of_connectedness.md`](01_graph_connectedness/emergence_of_connectedness.md).
-2. Continue to [`02_social_networks/strength_of_weak_ties.md`](02_social_networks/strength_of_weak_ties.md).
-3. Then read [`03_community_detection/community_detection.md`](03_community_detection/community_detection.md).
-4. Finally, run the examples in [`coding/`](coding/README.md).
-
+1. Start with the foundation: [`01_Emergence_of_Connectedness.md`](01_Emergence_of_Connectedness.md)
+2. Learn about social edges: [`02_Strength_of_Weak_Ties.md`](02_Strength_of_Weak_Ties.md)
+3. Learn to split networks: [`03_Community_Detection.md`](03_Community_Detection.md)
+4. Finally, view the practical examples in the [`code/`](code/) directory.

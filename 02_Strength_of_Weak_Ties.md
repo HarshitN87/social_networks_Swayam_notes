@@ -1,9 +1,9 @@
 # Granovetter's Strength of Weak Ties
 
 ## The Phenomenon
-Mark Granovetter's influential sociological theory states that human interactions are powered heavily by "weak ties". For example, when asking people who recommended them for their current job, up to 90% state it was a distant acquaintance—not a close friend or family member.
+Mark Granovetter's influential 1973 sociological theory states that human interactions and opportunities are powered heavily by "weak ties". In his original study, Granovetter surveyed professionals and found that when asking people who recommended them for their current job, up to 90% stated it was a relatively distant acquaintance—not a close friend or family member.
 
-Why? People who are strictly close to us (strong ties) operate in the exact same social circles, meaning they generally possess the identical information that we do. Acquaintances ("weak ties") operate in completely different circles. They act as distinct bridges to new information and external resources.
+Why does this happen? People who are strictly close to us (our "strong ties") operate in the exact same social circles, meaning they generally possess the identical information that we do. They hear about the same job openings, news, and ideas. Acquaintances ("weak ties"), however, operate in completely different circles. They act as distinct bridges to novel information and external resources that our core group lacks access to.
 
 ## Key Network Concepts
 
@@ -25,8 +25,12 @@ This measures how densely interconnected a person's friends are among themselves
 
 ### Neighborhood Overlap
 We can define the strength of a friendship between `A` and `B` dynamically by observing their shared connections.
-$$ \text{Overlap} = \frac{\text{Common Friends of } A \text{ and } B}{\text{Total Friends of } A \text{ and } B} $$
 
+$$
+\text{Overlap} = \frac{\text{Common Friends of } A \text{ and } B}{\text{Total Friends of } A \text{ and } B}
+$$
+
+A high overlap indicates a strong tie heavily embedded in a single community, while a near-zero overlap indicates a weak tie acting as a local bridge.
 ### Local Bridges vs Embdeddedness
 - **Local Bridge**: A tie (connection) between two nodes that do not share any triadic closure (they have zero mutual friends). Such bridges are almost always weak ties, and they act as primary highways between entirely different graph communities.
 - **Embeddedness**: The raw number of mutual friends two people share. High embeddedness implies a highly secure, trusting relationship. 
