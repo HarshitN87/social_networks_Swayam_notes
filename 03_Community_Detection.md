@@ -7,7 +7,7 @@ A "valid partitioning" of a graph maximizes:
 - **Intra-community connections**: High (many edges residing safely inside the defined group)
 - **Inter-community connections**: Low (few edges pointing outside the group)
 
-![alt text](image3.png)
+![My Image](images/image3.png)
 
 ## How to Determine Communities in a True Graph?
 To successfully identify independent communities, we naturally search for the weak points of a graph. If we locate and aggressively disconnect the edges holding independent groups together, the graph will inevitably shatter into its isolated true communities. 
