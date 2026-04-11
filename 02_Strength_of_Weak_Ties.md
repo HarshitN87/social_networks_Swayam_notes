@@ -26,9 +26,9 @@ This measures how densely interconnected a person's friends are among themselves
 ### Neighborhood Overlap
 We can define the strength of a friendship between `A` and `B` dynamically by observing their shared connections.
 
-```math
+$$
 \text{Overlap} = \frac{\text{Common Friends of } A \text{ and } B}{\text{Total Friends of } A \text{ and } B}
-```
+$$
 
 A high overlap indicates a strong tie heavily embedded in a single community, while a near-zero overlap indicates a weak tie acting as a local bridge.
 ### Local Bridges vs Embdeddedness

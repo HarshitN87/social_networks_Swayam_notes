@@ -22,26 +22,26 @@ For any specific vertex $v$:
 
 If we add $k$ independent edges randomly, the probability of vertex $v$ remaining isolated is:
 
-```math
+$$
 P(\text{isolated}) \approx \left(1 - \frac{2}{n}\right)^k
-```
+$$
 
 ### Key Thresholds
 Let's analyze what happens as we increase the number of edges, $k$:
 
 1. **When $k = n$ (Edges equal to the number of nodes):**
 
-   ```math
-   \left(1 - \frac{2}{n}\right)^n \approx e^{-2} \approx 0.135
-   ```
+$$
+\left(1 - \frac{2}{n}\right)^n \approx e^{-2} \approx 0.135
+$$
 
    This means there is still about a 13.5% chance for a vertex to remain isolated. The network is not yet fully connected and remains highly fragmented.
 
 2. **When $k = n \ln(n)$ (A much larger number of edges):**
 
-   ```math
-   \left(1 - \frac{2}{n}\right)^{n \ln n} \approx \left(e^{-2}\right)^{\ln n} = n^{-2} = \frac{1}{n^2}
-   ```
+$$
+\left(1 - \frac{2}{n}\right)^{n \ln n} \approx \left(e^{-2}\right)^{\ln n} = n^{-2} = \frac{1}{n^2}
+$$
 
    At this point, the probability of *any* single vertex being isolated exponentially decays towards 0 as $n$ grows large. The graph is **almost certainly connected**.
 
