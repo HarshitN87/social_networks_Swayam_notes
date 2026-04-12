@@ -216,7 +216,6 @@ That's it! Just add up all the hub scores of nodes pointing to you.
 
 **Answer:**
 
-```math
 a(\text{paper}) = 1.5 + 2.5 = \mathbf{4.0}
 
 Once again, you just add up the hub scores of the papers pointing to it.
