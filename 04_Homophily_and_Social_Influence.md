@@ -40,7 +40,10 @@ The probability of selecting one node of A and one node of B is $p \times q$. Si
 
 ### The Homophily Coefficient
 We can quantify the exact strength of homophily in a network using the **Homophily Coefficient**:
-$$ \text{Homophily Coefficient} = 1 - \frac{\text{Actual Cross-Type Friendships}}{\text{Expected Cross-Type Friendships}} $$
+
+$$
+\text{Homophily Coefficient} = 1 - \frac{\text{Actual Cross-Type Friendships}}{\text{Expected Cross-Type Friendships}}
+$$
 
 **Case Study Validations:**
 1. **Majors:** If random formation is expected to produce 208 cross-major friendships (e.g., CS vs Business students), but only 78 exist in reality, the coefficient is $1 - (78 / 208) = 1 - 0.375 = \mathbf{0.625}$.
@@ -70,7 +73,9 @@ To quantify the above phenomena, we need a mathematical measure of similarity be
 **Example: Jaccard Similarity**  
 For the Wikipedia dataset, similarity between Editor A and Editor B can be defined by the ratio of the intersection of their edited articles to the union of their edited articles:
 
-$$ \text{Similarity}(A, B) = \frac{| \text{Articles edited by A} \cap \text{Articles edited by B} |}{| \text{Articles edited by A} \cup \text{Articles edited by B} |} $$
+$$
+\text{Similarity}(A, B) = \frac{| \text{Articles edited by A} \cap \text{Articles edited by B} |}{| \text{Articles edited by A} \cup \text{Articles edited by B} |}
+$$
 
 If Editor A edits exactly the same set of articles as Editor B, the similarity is 1. If they edit completely distinct sets, the similarity is 0.
 
@@ -111,7 +116,11 @@ Sociological data indicates that the probability of forming a link increases as 
 - Going from 10 to 11 common friends adds very little extra probability compared to going from 0 to 1.
 
 Empirically, the probability $P(k)$ often behaves somewhat like:
-$$ P(k) \propto 1 - (1 - p)^k $$
+
+$$
+P(k) \propto 1 - (1 - p)^k
+$$
+
 Where $p$ is the baseline probability that any single common friend successfully introduces B and C.
 
 ---
@@ -127,13 +136,21 @@ To rigorously model how attributes like Body Mass Index (BMI) evolve alongside n
 
 ### 2. Homophily Probability Formula
 The probability of a friendship forming through homophily is based on BMI similarity:
-$$ P(u,v) = \frac{1}{|BMI_u - BMI_v| + 1000} $$
+
+$$
+P(u,v) = \frac{1}{|BMI_u - BMI_v| + 1000}
+$$
+
 *Why add 1000?* It ensures probability remains inversely proportional to BMI diff, prevents division by zero, and scales probabilities down to allow for gradual network evolution.
 *(Example: For BMIs 22 and 28, diff is 6, probability is $1/1006 \approx \mathbf{0.00099}$)*
 
 ### 3. Closure Probability Formula
 The probability of forming a connection through closure is:
-$$ P(\text{connection}) = 1 - (1 - p)^k $$
+
+$$
+P(\text{connection}) = 1 - (1 - p)^k
+$$
+
 - **$k$** represents the **total number of common neighbors** (combining mutual friends AND shared social foci).
 - Because $k$ accounts for both, **Triadic Closure** and **Focal Closure** are captured by the *exact same formula*.
 - **Membership Closure** occurs between a person and a social focus when they share a common person neighbor. 
