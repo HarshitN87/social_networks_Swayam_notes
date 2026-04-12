@@ -1,0 +1,133 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 480" width="780" height="480">
+  <defs>
+    <marker id="arr1" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#60A5FA"/>
+    </marker>
+    <filter id="sh3" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="2" dy="2" stdDeviation="4" flood-color="#00000050"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="780" height="480" fill="#0F1117" rx="12"/>
+
+  <!-- Title -->
+  <text x="390" y="36" font-family="'Segoe UI', sans-serif" font-size="19" font-weight="700" fill="#FFFFFF" text-anchor="middle">PageRank 3-Node Example: Convergence Trace</text>
+  <text x="390" y="56" font-family="'Segoe UI', sans-serif" font-size="12" fill="#9CA3AF" text-anchor="middle">Graph: A→C, C→B, B→A, B→C (50/50 split) · Converges to A=0.2, B=0.4, C=0.4</text>
+
+  <!-- =============================================== -->
+  <!--   LEFT: Graph Structure -->
+  <!-- =============================================== -->
+  <rect x="28" y="74" width="280" height="32" rx="7" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="168" y="94" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#94A3B8" text-anchor="middle">Graph Topology</text>
+
+  <!-- Node A -->
+  <circle cx="130" cy="200" r="40" fill="#172554" stroke="#3B82F6" stroke-width="2.5" filter="url(#sh3)"/>
+  <text x="130" y="196" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#60A5FA" text-anchor="middle">A</text>
+  <text x="130" y="214" font-family="'Segoe UI', sans-serif" font-size="11" fill="#93C5FD" text-anchor="middle">→ C only</text>
+
+  <!-- Node B -->
+  <circle cx="270" cy="340" r="40" fill="#172554" stroke="#3B82F6" stroke-width="2.5" filter="url(#sh3)"/>
+  <text x="270" y="336" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#60A5FA" text-anchor="middle">B</text>
+  <text x="270" y="354" font-family="'Segoe UI', sans-serif" font-size="11" fill="#93C5FD" text-anchor="middle">→ A, C (50/50)</text>
+
+  <!-- Node C -->
+  <circle cx="50" cy="340" r="40" fill="#172554" stroke="#3B82F6" stroke-width="2.5" filter="url(#sh3)"/>
+  <text x="50" y="336" font-family="'Segoe UI', sans-serif" font-size="18" font-weight="700" fill="#60A5FA" text-anchor="middle">C</text>
+  <text x="50" y="354" font-family="'Segoe UI', sans-serif" font-size="11" fill="#93C5FD" text-anchor="middle">→ B only</text>
+
+  <!-- Edges A→C -->
+  <line x1="100" y1="232" x2="64" y2="302" stroke="#60A5FA" stroke-width="2" marker-end="url(#arr1)"/>
+  <text x="72" y="268" font-family="'Segoe UI', sans-serif" font-size="10" fill="#93C5FD">A→C</text>
+
+  <!-- Edges C→B -->
+  <line x1="90" y1="340" x2="228" y2="340" stroke="#60A5FA" stroke-width="2" marker-end="url(#arr1)"/>
+  <text x="155" y="333" font-family="'Segoe UI', sans-serif" font-size="10" fill="#93C5FD">C→B</text>
+
+  <!-- Edges B→A (50%) -->
+  <path d="M 255 303 Q 220 250 153 216" stroke="#60A5FA" stroke-width="2" fill="none" marker-end="url(#arr1)"/>
+  <text x="212" y="250" font-family="'Segoe UI', sans-serif" font-size="10" fill="#93C5FD">B→A ½</text>
+
+  <!-- Edges B→C (50%) -->
+  <path d="M 232 358 Q 160 400 88 358" stroke="#60A5FA" stroke-width="2" fill="none" marker-end="url(#arr1)"/>
+  <text x="155" y="410" font-family="'Segoe UI', sans-serif" font-size="10" fill="#93C5FD">B→C ½</text>
+
+  <!-- =============================================== -->
+  <!--   RIGHT: Iteration Table -->
+  <!-- =============================================== -->
+  <rect x="335" y="74" width="420" height="32" rx="7" fill="#1E293B" stroke="#334155" stroke-width="1"/>
+  <text x="545" y="94" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600" fill="#94A3B8" text-anchor="middle">Value Evolution (Power Iteration)</text>
+
+  <!-- Table header -->
+  <rect x="335" y="115" width="420" height="30" rx="4" fill="#1E3A5F"/>
+  <text x="385" y="134" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#BFDBFE" text-anchor="middle">Iteration</text>
+  <text x="495" y="134" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#60A5FA" text-anchor="middle">Node A</text>
+  <text x="600" y="134" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#60A5FA" text-anchor="middle">Node B</text>
+  <text x="705" y="134" font-family="'Segoe UI', sans-serif" font-size="12" font-weight="700" fill="#60A5FA" text-anchor="middle">Node C</text>
+
+  <!-- Table rows -->
+  <!-- k=0 -->
+  <rect x="335" y="145" width="420" height="28" fill="#111827"/>
+  <text x="385" y="163" font-family="'Segoe UI', monospace" font-size="12" fill="#E5E7EB" text-anchor="middle">k = 0</text>
+  <text x="495" y="163" font-family="'Segoe UI', monospace" font-size="12" fill="#C4B5FD" text-anchor="middle">0.333</text>
+  <text x="600" y="163" font-family="'Segoe UI', monospace" font-size="12" fill="#C4B5FD" text-anchor="middle">0.333</text>
+  <text x="705" y="163" font-family="'Segoe UI', monospace" font-size="12" fill="#C4B5FD" text-anchor="middle">0.333</text>
+
+  <!-- k=1 -->
+  <rect x="335" y="173" width="420" height="28" fill="#0F1117"/>
+  <text x="385" y="191" font-family="'Segoe UI', monospace" font-size="12" fill="#E5E7EB" text-anchor="middle">k = 1</text>
+  <text x="495" y="191" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.167</text>
+  <text x="600" y="191" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.333</text>
+  <text x="705" y="191" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.500</text>
+
+  <!-- k=2 -->
+  <rect x="335" y="201" width="420" height="28" fill="#111827"/>
+  <text x="385" y="219" font-family="'Segoe UI', monospace" font-size="12" fill="#E5E7EB" text-anchor="middle">k = 2</text>
+  <text x="495" y="219" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.167</text>
+  <text x="600" y="219" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.500</text>
+  <text x="705" y="219" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.333</text>
+
+  <!-- k=3 -->
+  <rect x="335" y="229" width="420" height="28" fill="#0F1117"/>
+  <text x="385" y="247" font-family="'Segoe UI', monospace" font-size="12" fill="#E5E7EB" text-anchor="middle">k = 3</text>
+  <text x="495" y="247" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.250</text>
+  <text x="600" y="247" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.333</text>
+  <text x="705" y="247" font-family="'Segoe UI', monospace" font-size="12" fill="#FCD34D" text-anchor="middle">0.417</text>
+
+  <!-- k=5 -->
+  <rect x="335" y="257" width="420" height="28" fill="#111827"/>
+  <text x="385" y="275" font-family="'Segoe UI', monospace" font-size="12" fill="#E5E7EB" text-anchor="middle">k = 5</text>
+  <text x="495" y="275" font-family="'Segoe UI', monospace" font-size="12" fill="#FB923C" text-anchor="middle">0.208</text>
+  <text x="600" y="275" font-family="'Segoe UI', monospace" font-size="12" fill="#FB923C" text-anchor="middle">0.389</text>
+  <text x="705" y="275" font-family="'Segoe UI', monospace" font-size="12" fill="#FB923C" text-anchor="middle">0.403</text>
+
+  <!-- k=10 -->
+  <rect x="335" y="285" width="420" height="28" fill="#0F1117"/>
+  <text x="385" y="303" font-family="'Segoe UI', monospace" font-size="12" fill="#E5E7EB" text-anchor="middle">k = 10</text>
+  <text x="495" y="303" font-family="'Segoe UI', monospace" font-size="12" fill="#FB923C" text-anchor="middle">0.200</text>
+  <text x="600" y="303" font-family="'Segoe UI', monospace" font-size="12" fill="#FB923C" text-anchor="middle">0.401</text>
+  <text x="705" y="303" font-family="'Segoe UI', monospace" font-size="12" fill="#FB923C" text-anchor="middle">0.399</text>
+
+  <!-- separator dots -->
+  <text x="545" y="328" font-family="'Segoe UI', sans-serif" font-size="16" fill="#6B7280" text-anchor="middle">· · · · · · · · ·</text>
+
+  <!-- k=∞ CONVERGED -->
+  <rect x="335" y="342" width="420" height="34" rx="0" fill="#14532D" stroke="#22C55E" stroke-width="1.5"/>
+  <text x="385" y="364" font-family="'Segoe UI', monospace" font-size="13" font-weight="700" fill="#86EFAC" text-anchor="middle">k = ∞</text>
+  <text x="495" y="364" font-family="'Segoe UI', monospace" font-size="14" font-weight="700" fill="#4ADE80" text-anchor="middle">0.200</text>
+  <text x="600" y="364" font-family="'Segoe UI', monospace" font-size="14" font-weight="700" fill="#4ADE80" text-anchor="middle">0.400</text>
+  <text x="705" y="364" font-family="'Segoe UI', monospace" font-size="14" font-weight="700" fill="#4ADE80" text-anchor="middle">0.400</text>
+
+  <!-- CONVERGED label -->
+  <rect x="335" y="382" width="420" height="22" rx="0" fill="#0D3320"/>
+  <text x="545" y="397" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#86EFAC" text-anchor="middle">✓ CONVERGED — Ratio A:B:C = 1:2:2</text>
+
+  <!-- =============================================== -->
+  <!--  BOTTOM: Equations used per iteration -->
+  <!-- =============================================== -->
+  <rect x="335" y="418" width="420" height="50" rx="8" fill="#1A1D27" stroke="#374151" stroke-width="1.2"/>
+  <text x="545" y="437" font-family="'Segoe UI', sans-serif" font-size="11" font-weight="600" fill="#E5E7EB" text-anchor="middle">Iteration 1 Step-by-Step</text>
+  <text x="345" y="454" font-family="'Segoe UI', monospace" font-size="10.5" fill="#93C5FD">A_new = ½×B  =  ½×⅓ = ⅙ = 0.167</text>
+  <text x="545" y="454" font-family="'Segoe UI', monospace" font-size="10.5" fill="#93C5FD">B_new = C  =  ⅓ = 0.333</text>
+  <text x="345" y="465" font-family="'Segoe UI', monospace" font-size="10.5" fill="#93C5FD">C_new = A + ½×B  =  ⅓ + ⅙ = ½ = 0.500</text>
+</svg>
