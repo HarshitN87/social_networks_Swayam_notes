@@ -1,575 +1,677 @@
-# HITS, Recommender Systems & PageRank Linear Algebra
+# HITS, Recommender Systems & PageRank — Plain Language Notes
 
-> **Topic:** Hyperlink-Induced Topic Search (HITS), Bipartite Recommender Scoring, and the Mathematical Foundations of PageRank via Markov Matrices and Eigenvalues.
-
----
-
-## 1. The Bipartite Recommender System
-
-### 1.1 The Core Idea — Mutual Reinforcement
-
-A **recommender system** identifies high-quality resources based on who endorses them and, conversely, judges the quality of endorsers based on the quality of what they recommend. This creates a **positive feedback loop**:
-
-```
-Good Resource → Trusted Recommender → Good Resource → ...
-```
-
-> **Analogy:** Sharing joy multiplies it; sharing sorrow lessens it. Similarly, a high-quality
-> resource amplifies the credibility of its pointer, and a credible pointer elevates the status
-> of what it points to.
-
-This reciprocal credit system forms the foundational framework for measuring **authority**, **trust**, and **influence** within interconnected networks.
+> **What this covers:** How do we decide which webpages, users, or papers are "important" in a network? This file explains three closely related ideas — Recommender Systems, the HITS algorithm, and PageRank — building from simple intuition all the way to the linear algebra behind them.
 
 ---
 
-### 1.2 Structure — Bipartite Graph
+## Part 1 — Recommender Systems (The Warm-Up Idea)
 
-The system consists of two disjoint groups of nodes with edges only crossing between them:
+### What is a Recommender System?
+
+Imagine you're trying to find good YouTube channels about cooking. You could:
+1. Ask your friend who watches a lot of cooking videos — they might recommend 5 channels.
+2. Ask another friend who only watches one cooking channel — they recommend just that.
+
+Now think about this: **whose recommendation do you trust more?**
+
+You trust the friend who recommends only a few channels **if** those channels are genuinely great. And you trust a channel more if it's recommended by people whose other recommendations are also good.
+
+This is exactly what a **recommender system** does. It creates a loop of trust:
 
 ```
-RECOMMENDERS         RESOURCES
-(Left nodes)         (Right nodes)
-
-    R1  ─────────►  ─────  S1
-    R1  ─────────►  ─────  S2
-    R2  ─────────►  ─────  S3
-    R2  ─────────►  ─────  S4
-    R3  ─────────►  ─────  S5
-    R3  ─────────►  ─────  S1
+Good channel → trusted recommender → more trusted → recommends better channels → ...
 ```
 
-- **Bipartite** means edges only go from recommenders → resources (no recommender points to another recommender, no resource points to another resource).
-- In the course example: **3 recommenders** and **5 resources**.
+> **Key idea:** A recommender's quality goes up when its recommendations are good.
+> A resource's quality goes up when good recommenders point to it.
+> Each one improves the other — this is called **mutual reinforcement**.
+
+---
+
+### The Structure — A Bipartite Graph
+
+In the course example, we have:
+- **3 Recommenders** (think of them as YouTube channels that create "Top 5 lists")
+- **5 Resources** (the actual content being recommended)
+
+This forms what's called a **bipartite graph** — a graph with two separate groups where edges only go **from one group to the other**. No recommender points to another recommender. No resource points to another resource.
+
+```
+RECOMMENDERS             RESOURCES
+
+    R1  ──────────────►  S1
+    R1  ──────────────►  S2
+    R2  ──────────────►  S2
+    R2  ──────────────►  S3
+    R2  ──────────────►  S4
+    R3  ──────────────►  S1
+    R3  ──────────────►  S5
+```
+
+In the diagram above, R1 endorses S1 and S2. R3 endorses S1 and S5. Notice that S1 gets endorsed by **two recommenders** (R1 and R3), so it might score higher than S5, which only has R3.
 
 ![Bipartite Recommender System — 3 recommenders, 5 resources, scoring cycle](images/hits_bipartite_recommender.svg)
 
 ---
 
-### 1.3 Scoring Rules
+### How Scoring Works
 
-| Node Type | Score = |
+**Step 1 — Give everyone a starting score of 1.**
+
+Both recommenders and resources start equal. Nobody is more important than anyone else yet.
+
+**Step 2 — Update scores using these two rules:**
+
+| Who? | Their new score = |
 |---|---|
-| **Recommender** | Sum of scores of all resources it endorses |
-| **Resource** | Sum of scores of all recommenders pointing to it |
+| **A Recommender** | Add up the scores of every resource it points to |
+| **A Resource** | Add up the scores of every recommender that points to it |
 
-**Initialization:** All nodes start with a score of **1**.
+**Step 3 — Normalize (scale down the scores so they don't grow forever)**
 
-**After each round:** Apply **normalization** — divide each node's score by the total sum of scores within its group.
+After updating, divide each node's score by the total score of everyone in its group.
 
 $$
-\text{Normalized}(x) = \frac{\text{Score}(x)}{\sum_{\text{all } y \text{ in same group}} \text{Score}(y)}
+\text{Normalized score of } x = \frac{\text{score of } x}{\text{sum of all scores in the same group}}
 $$
 
-This prevents unbounded growth and preserves proportional weight.
+**Why normalize?** Without it, every round the numbers just keep getting bigger. Normalization keeps everything between 0 and 1, so we're comparing proportions — not growing piles of numbers.
+
+**Step 4 — Repeat Steps 2 and 3 around 200 times.** After enough rounds, the scores stop changing. This is called **convergence** — the system has found its stable answer.
+
+#### Tiny Worked Example
+
+Say we have 2 recommenders (R1, R2) and 2 resources (S1, S2):
+- R1 → S1, S2
+- R2 → S2
+
+**Round 0 (start):** R1=1, R2=1, S1=1, S2=1
+
+**Round 1 — Update resources:**
+- S1's new score = score of R1 (only R1 points to S1) = **1**
+- S2's new score = score of R1 + score of R2 = 1 + 1 = **2**
+
+**Round 1 — Normalize resources (total = 1+2 = 3):**
+- S1 = 1/3 ≈ **0.33**
+- S2 = 2/3 ≈ **0.67**
+
+S2 scores higher because two recommenders point to it. Makes sense!
+
+**Round 1 — Update recommenders:**
+- R1's new score = S1 + S2 = 0.33 + 0.67 = **1.0**
+- R2's new score = S2 = **0.67**
+
+**Round 1 — Normalize recommenders (total = 1.0+0.67 = 1.67):**
+- R1 = 1.0/1.67 ≈ **0.60**
+- R2 = 0.67/1.67 ≈ **0.40**
+
+R1 ranks higher because it recommends more (and highly-endorsed) resources.
 
 ---
 
-### 1.4 Iterative Process & Convergence
+### Why Does It Converge?
 
-The assign-then-normalize cycle repeats iteratively:
+After enough rounds, the numbers reach a **steady state** — each round produces the exact same values as the previous one. This happens because:
 
-1. **Assign:** Compute new scores for all recommenders and resources simultaneously.
-2. **Normalize:** Divide each score by the group total.
-3. **Repeat** until convergence (~200 iterations).
+1. **Normalization keeps values bounded** — they can't grow forever.
+2. **Each round is essentially a matrix multiplication** — mathematically guaranteed to stabilize.
+3. **The Perron-Frobenius theorem** (fancy maths) says: for any well-behaved system like this, there is exactly one stable solution, and the iteration always finds it.
 
-**Why does it converge?**
-- The normalization bounds all values in (0, 1).
-- Each cycle is essentially a matrix multiplication (see Section 5).
-- The Perron-Frobenius theorem guarantees convergence to a unique stable distribution.
-
-> **Key Insight:** Scores stop changing when the steady state is reached — the relative ranking of nodes becomes fixed.
+> Think of it like shaking a jar of sand. No matter how you start shaking it, eventually the sand settles into the same lowest-energy arrangement. The network's scores do the same thing.
 
 ---
 
-## 2. The HITS Algorithm (Hyperlink-Induced Topic Search)
+## Part 2 — The HITS Algorithm
 
-### 2.1 Overview
+### From Bipartite to Any Graph
 
-HITS extends the bipartite recommender concept to **general directed graphs** (not just bipartite structures). Every node simultaneously plays two roles:
+The recommender system we just studied was **bipartite** — two separate groups. But most real networks (the web, social media, citations) don't have this clean separation. Any page can link to any page.
 
-| Role | Metric | Meaning |
+**HITS** (Hyperlink-Induced Topic Search) is the version of the same idea that works on **any directed graph**. The key twist: instead of one score per node, every node gets **two scores**.
+
+---
+
+### Two Scores per Node: Hub and Authority
+
+Every node in a HITS-analyzed network plays two roles at the same time:
+
+| Score | Name | What it means in plain English |
 |---|---|---|
-| **Hub** | Hub score $h(v)$ | How well does this node point to high-quality destinations? |
-| **Authority** | Authority score $a(v)$ | How many high-quality hubs point to this node? |
+| **Hub score** $h(v)$ | "Good pointer" | You are a good hub if you link to many high-quality pages |
+| **Authority score** $a(v)$ | "Good destination" | You are a good authority if many good hubs link to you |
 
-> **Origin:** HITS was developed by Jon Kleinberg (1999) for ranking early web directories and news aggregators, where trust in a directory depended on the quality of its linked content, and trust in content depended on the credibility of the directories featuring it.
+**A helpful analogy:**
+
+- **Hub** = A knowledgeable librarian who always recommends the best books. Their value comes from how good their recommendations are.
+- **Authority** = A brilliant textbook that every great librarian recommends. Its value comes from how many trusted librarians endorse it.
+
+A great librarian (hub) makes books more famous. Famous books (authorities) make the librarian more credible. They lift each other up — mutual reinforcement.
+
+> **Origin:** HITS was invented by Jon Kleinberg in 1999 to rank websites. Early web directories (like Yahoo's) were exactly this: the directory was the hub, and the websites it listed were authorities.
 
 ---
 
-### 2.2 The Mutual Reinforcement Equations
+### The Two Formulas (Explained Simply)
 
-The two scores are **co-dependent** — each is defined in terms of the other:
-
-$$
-\boxed{h(v) = \sum_{v \to u} a(u)}
-$$
-
-> A node's **hub score** = sum of the **authority scores** of the nodes it links to.
+**Hub score formula:**
 
 $$
-\boxed{a(v) = \sum_{u \to v} h(u)}
+h(v) = \sum_{\text{all pages } u \text{ that } v \text{ links to}} a(u)
 $$
 
-> A node's **authority score** = sum of the **hub scores** of the nodes that link to it.
+**In plain English:** Your hub score = add up the authority scores of everyone you link to.
 
-> **Intuition:**
-> - Strong **hubs** amplify the authority of the nodes they reference.
-> - Strong **authorities** validate the hub status of those that link to them.
+If you link to 3 pages with authority scores 5, 3, and 2 → your hub score = 5+3+2 = **10**.
+
+---
+
+**Authority score formula:**
+
+$$
+a(v) = \sum_{\text{all pages } u \text{ that link to } v} h(u)
+$$
+
+**In plain English:** Your authority score = add up the hub scores of everyone who links to you.
+
+If 2 hubs with scores 3 and 5 link to you → your authority score = 3+5 = **8**.
 
 ![HITS Algorithm — Hub & Authority Mutual Reinforcement](images/hits_hub_authority.svg)
 
 ---
 
-### 2.3 HITS Algorithm Steps
+### Step-by-Step: How to Run HITS
 
-1. **Initialize:** Set $h(v) = 1$ and $a(v) = 1$ for all nodes.
-2. **Authority Update:** $a(v) \leftarrow \sum_{u \to v} h(u)$ for all $v$.
-3. **Hub Update:** $h(v) \leftarrow \sum_{v \to u} a(u)$ for all $v$.
-4. **Normalize:** Divide all hub scores by $\sum_v h(v)^2$, and all authority scores by $\sum_v a(v)^2$ (L2 normalization), OR divide by group sum (L1 normalization).
-5. **Repeat** until convergence.
+Here's the full algorithm in simple steps:
 
-> **Note:** In the course's bipartite version, recommenders = hubs and resources = authorities, and normalization uses L1 (sum = 1 after each round).
+**Step 1:** Give every node a hub score of 1 and an authority score of 1.
+
+**Step 2:** Update authority scores
+→ For each node, add up the hub scores of *all nodes that point to it*.
+
+**Step 3:** Update hub scores
+→ For each node, add up the authority scores of *all nodes it points to*.
+
+**Step 4:** Normalize
+→ Divide every hub score by the total of all hub scores (so they sum to 1).
+→ Divide every authority score by the total of all authority scores.
+
+**Step 5:** Go back to Step 2 and repeat until the numbers stop changing.
+
+> **Important rule:** Always do Steps 2 and 3 using the scores from the *previous* round, not the updated ones mid-round. If you mix current and previous values, you'll get wrong results.
 
 ---
 
-### 2.4 Worked Example — Calculating Authority Score
+### Worked Example: Calculating Scores
 
-**Setup:** A user is followed by two hubs with hub scores **3** and **5**.
+**Question:** A user on a social platform is followed by two hubs. Those hubs have hub scores of **3** and **5**. What is the user's authority score before normalization?
 
+**Answer:**
 $$
-a(\text{user}) = 3 + 5 = \mathbf{8} \quad \text{(before normalization)}
+a(\text{user}) = 3 + 5 = \mathbf{8}
 $$
 
-**Setup:** A paper is cited by two papers with authority scores **1.5** and **2.5**.
+That's it! Just add up all the hub scores of nodes pointing to you.
 
-Hub-independent authority contribution before normalization:
+---
 
+**Question:** A research paper is cited by two other papers. Those papers have authority scores of **1.5** and **2.5**. What is this paper's hub-independent authority contribution before normalization?
+
+**Answer:**
 $$
 a(\text{paper}) = 1.5 + 2.5 = \mathbf{4.0}
 $$
 
+Wait — this question says "hub-independent authority contribution." This just means we're computing the raw authority score from cited-by relationships, before applying normalization. Still just: add the scores up.
+
 ---
 
-### 2.5 HITS vs. PageRank: Strengths and Weaknesses
+### HITS vs. PageRank: When to Use Which?
 
-| Property | HITS | PageRank |
+| | HITS | PageRank |
 |---|---|---|
-| **Scores per node** | Two (hub + authority) | One (global rank) |
-| **Best suited for** | Topic-specific subgraphs | Global graph ranking |
-| **Stability** | Sensitive to graph structure; fluctuates with additions/removals | Robust and stable as graph grows |
-| **Scope** | Applied to a focused subgraph per query | Applied to entire graph once |
-| **Convergence** | Guaranteed mathematically | Guaranteed mathematically |
-| **Weakness** | Sensitive to irrelevant parts of the graph; lacks a global notion of importance | Requires careful handling of dangling/sink nodes |
+| **How many scores per node?** | Two (hub + authority) | One (a single rank) |
+| **Best used for** | Focused, topic-specific queries | Ranking an entire large network |
+| **Applied to** | A small subgraph built per query | The whole graph, once |
+| **Stability** | Sensitive — adding/removing a few nodes can change rankings a lot | Stable — small changes don't shift rankings much |
+| **Convergence** | Yes, always converges | Yes, always converges (with damping) |
+| **Main weakness** | Easily thrown off by irrelevant parts of the graph; no global sense of importance | Sink nodes (pages with no links) break it — needs the damping factor fix |
 
-> **Why HITS fails on large social graphs:** Rankings fluctuate significantly when new users join or leave. HITS works best applied to topic-specific subgraphs (e.g., users in a fitness discussion).
-
----
-
-## 3. PageRank — The Random Walk Model
-
-### 3.1 Core Principle
-
-> **A node is important if it is pointed to by other important nodes.**
-
-This is a **recursive, self-referential** definition resolved through iterative computation.
-
-**The conservation principle:** Influence is a finite resource. The total "gold coins" in the network is fixed (conserved) throughout every redistribution cycle. This prevents inflation to infinity or depletion to zero.
+> **Why HITS struggles on large graphs:** Imagine running HITS on all of Twitter. Adding just one new popular user can cascade changes through millions of hub/authority scores. HITS works beautifully on a small set of fitness-related accounts, but poorly on all 300 million users at once. PageRank handles the big picture far better.
 
 ---
 
-### 3.2 Three-Node Example: A, B, C
+## Part 3 — PageRank: Your Rank Depends on Who Points to You
 
-**Graph structure:**
-- A → C (A sends all its value to C)
-- C → B (C sends all its value to B)
-- B → A and B → C (B splits its value 50/50)
+### The Core Idea (No Maths Yet)
 
-**Initialization:** Each node holds $\frac{1}{3}$.
+**PageRank** was created by Larry Page and Sergey Brin — the founders of Google — to rank web pages. The insight was beautifully simple:
 
-| Iteration | Node A | Node B | Node C |
+> **A page is important if important pages link to it.**
+
+This seems circular (you need to know who's important *to* know who's important) but it can be solved with iteration, just like our recommender system.
+
+**Think of it this way:** Imagine every page on the web has some "coins." At each round:
+- Every page takes all its coins and distributes them equally to every page it links to.
+- Pages that receive coins from many important (rich) pages accumulate more coins.
+- After enough rounds, the coin distribution stabilizes. Pages with the most coins = most important.
+
+**The conservation rule:** The total coins in the system never changes. If A gives coins to B and C, A ends up with zero, but B and C each got some. No coins are created or destroyed. This is identical to the bipartite recommender normalization.
+
+---
+
+### Three-Node Example: Walking Through Every Step
+
+Let's make this concrete. We have three nodes: **A**, **B**, **C**.
+
+**The links:**
+- A → C (A points only to C)
+- C → B (C points only to B)
+- B → A and B → C (B splits its coins equally: 50% to A, 50% to C)
+
+**Starting values:** Each node gets 1/3 of the total (equal share to start).
+
+```
+A = 1/3    B = 1/3    C = 1/3
+```
+
+#### Iteration 1: What happens?
+
+**Node A** only receives from B (which gives 50% of its coins to A):
+$$A_{new} = \frac{1}{2} \times B_{old} = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6} \approx 0.167$$
+
+**Node B** only receives from C (which gives all of its coins to B):
+$$B_{new} = C_{old} = \frac{1}{3} \approx 0.333$$
+
+**Node C** receives from both A (all of A's coins) and B (50% of B's coins):
+$$C_{new} = A_{old} + \frac{1}{2} \times B_{old} = \frac{1}{3} + \frac{1}{6} = \frac{2}{6} + \frac{1}{6} = \frac{3}{6} = \frac{1}{2} = 0.500$$
+
+After Iteration 1: **A = 0.167, B = 0.333, C = 0.500** ✅ (total = 1.0, conserved)
+
+#### What happens over time?
+
+| Round | A | B | C |
 |---|---|---|---|
-| 0 | $\frac{1}{3}$ | $\frac{1}{3}$ | $\frac{1}{3}$ |
-| 1 | $\frac{1}{6}$ | $\frac{1}{3}$ | $\frac{1}{2}$ |
-| ... | ... | ... | ... |
-| **Converged** | **0.2** | **0.4** | **0.4** |
+| 0 (start) | 0.333 | 0.333 | 0.333 |
+| 1 | 0.167 | 0.333 | 0.500 |
+| 2 | 0.167 | 0.500 | 0.333 |
+| 3 | 0.250 | 0.333 | 0.417 |
+| 5 | 0.208 | 0.389 | 0.403 |
+| 10 | 0.200 | 0.401 | 0.399 |
+| **∞ (converged)** | **0.200** | **0.400** | **0.400** |
 
-**Derivation of Iteration 1:**
+The values wobble around at first, then gradually settle. After enough rounds, the numbers lock in.
 
-$$
-A_{new} = \frac{1}{2} \times B_{old} = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6}
-$$
+**Final answer:** A = 0.2, B = 0.4, C = 0.4. The ratio is **A : B : C = 1 : 2 : 2**.
 
-$$
-B_{new} = C_{old} = \frac{1}{3}
-$$
-
-$$
-C_{new} = A_{old} + \frac{1}{2} \times B_{old} = \frac{1}{3} + \frac{1}{6} = \frac{1}{2}
-$$
-
-**Converged ratio:** A : B : C = **1 : 2 : 2**, confirming:
-
-$$
-A = 0.2, \quad B = 0.4, \quad C = 0.4
-$$
-
-> **Key insight:** The equilibrium is determined entirely by the network's topology — NOT by the initial values.
+> **What this tells us:** Node A is the least important — it only receives from B (which splits its value). B and C are equally important. This makes intuitive sense: B and C form a "feeding loop" — C feeds B and gets fed back from A, while B gets fed by C.
 
 ![PageRank 3-Node Iteration — Convergence to A=0.2, B=0.4, C=0.4](images/hits_pagerank_iteration.svg)
 
 ---
 
-### 3.3 Five-Node Example: The System of Linear Equations
+### The General PageRank Formula
 
-In a 5-node network (A, B, C, D, E), each node's PageRank is expressed as a **linear equation** in terms of its neighbors' PageRank:
-
-$$
-A = \frac{C}{3}
-$$
+For any node $v$ in any directed graph:
 
 $$
-B = A + \frac{E}{2}
+PR(v) = \sum_{\text{all nodes } u \text{ that link to } v} \frac{PR(u)}{\text{number of outgoing links from } u}
 $$
 
-$$
-E = D + \frac{C}{3}
-$$
+**Breaking this down:**
+- Look at everyone who links to you.
+- Each of them gives you a fraction of their score.
+- The fraction they give is: their score ÷ how many total links they have going out.
 
-**Conservation check:** The total of all node values must always equal **1.0** (or the starting total).
-
-This system of equations is solved by iteration (power method), not symbolic algebra, because:
-- Values are interdependent (circular dependencies)
-- The matrix formulation handles all equations simultaneously
+**Why divide by outgoing links?** Because if someone links to 100 pages, each page only gets 1/100th of their score. But if someone links to only 2 pages, each gets 1/2. A selective endorser is more valuable.
 
 ---
 
-## 4. Matrix Formulation of PageRank
+### Five-Node Example: System of Equations
 
-### 4.1 State Vector and Transition Matrix
+In a 5-node network (A, B, C, D, E), the PageRank of each node depends on its neighbors. Suppose:
+- C has 3 outgoing links (so it gives 1/3 of its value to each neighbor)
+- A receives from C only → $A = \frac{C}{3}$
+- E provides half its value to B → $B = A + \frac{E}{2}$
+- E receives from both D (fully) and C (1/3 share) → $E = D + \frac{C}{3}$
 
-At any iteration, the network state is a **column vector** $\mathbf{r}$ where each entry $r_i$ is the current PageRank of node $i$:
-
-$$
-\mathbf{r}^{(0)} = \begin{bmatrix} r_A \\ r_B \\ r_C \end{bmatrix} = \begin{bmatrix} 1/3 \\ 1/3 \\ 1/3 \end{bmatrix}
-$$
-
-The network topology is encoded in a **transition matrix** $M$ where:
-
-$$
-M_{ij} = \frac{1}{\text{out-degree}(j)} \quad \text{if node } j \text{ links to node } i, \text{ else } 0
-$$
-
-> **Column convention:** Column $j$ describes how node $j$ distributes its score to others. If node $j$ has 3 outgoing links, each cell in column $j$ (for the linked nodes) gets $\frac{1}{3}$.
-
-**Matrix update rule:**
-
-$$
-\mathbf{r}^{(t+1)} = M \cdot \mathbf{r}^{(t)}
-$$
-
-**After $k$ iterations:**
-
-$$
-\mathbf{r}^{(k)} = M^k \cdot \mathbf{r}^{(0)}
-$$
+All these equations are happening simultaneously and are all interdependent. You can't solve one without knowing the others. That's why we don't try to solve them with algebra — we just **iterate** (guess, update, repeat) until the numbers converge.
 
 ---
 
-### 4.2 Example — Three-Node Transition Matrix
+## Part 4 — The Matrix Behind PageRank
 
-For the A→C, C→B, B→A, B→C graph:
+### Why Matrices?
+
+Doing the PageRank update for thousands or millions of nodes by hand is impossible. Matrices let us do all the updates for **every node at once** with a single multiplication.
+
+### Step 1: Represent the Network as a Column Vector
+
+The current scores of all nodes are stored in a column vector. For our 3-node example with initial scores of 1/3 each:
+
+$$
+\mathbf{r}^{(0)} = \begin{bmatrix} 1/3 \\ 1/3 \\ 1/3 \end{bmatrix} \leftarrow \text{(A's score, B's score, C's score)}
+$$
+
+### Step 2: Build the Transition Matrix M
+
+The **transition matrix** M tells us "how does each node distribute its score to others?"
+
+**Rule for filling in matrix M:**
+- Look at each column. Column $j$ represents node $j$.
+- For every node that $j$ links to, put $\frac{1}{\text{out-degree of } j}$ in that row.
+- Everywhere else, put 0.
+
+For our A→C, C→B, B→A+C graph (rows = destination, columns = source):
 
 $$
 M = \begin{bmatrix}
+\text{row A} \\ \text{row B} \\ \text{row C}
+\end{bmatrix}
+= \begin{bmatrix}
 0 & \frac{1}{2} & 0 \\
 0 & 0 & 1 \\
 1 & \frac{1}{2} & 0
 \end{bmatrix}
 $$
 
-Reading the matrix:
-- **Column 1 (A):** A sends all its value to C → $M_{31} = 1$, all others = 0
-- **Column 2 (B):** B splits between A and C → $M_{12} = M_{32} = \frac{1}{2}$
-- **Column 3 (C):** C sends all its value to B → $M_{23} = 1$
+**Reading the columns:**
+- **Column 1 (A):** A only links to C → A's entire score goes to row C → $M_{3,1} = 1$
+- **Column 2 (B):** B links to both A and C, splitting 50/50 → $M_{1,2} = \frac{1}{2}$ and $M_{3,2} = \frac{1}{2}$
+- **Column 3 (C):** C only links to B → $M_{2,3} = 1$
 
-**Verification:**
+### Step 3: One Matrix Multiply = One Round of Updates
 
 $$
-M \cdot \mathbf{r}^{(0)} = \begin{bmatrix} 0 & 1/2 & 0 \\ 0 & 0 & 1 \\ 1 & 1/2 & 0 \end{bmatrix} \begin{bmatrix} 1/3 \\ 1/3 \\ 1/3 \end{bmatrix} = \begin{bmatrix} 1/6 \\ 1/3 \\ 1/2 \end{bmatrix}
+\mathbf{r}^{(t+1)} = M \cdot \mathbf{r}^{(t)}
 $$
 
-This matches Iteration 1 computed manually! ✅
+Let's verify this gives us the right answer for Iteration 1:
+
+$$
+M \cdot \mathbf{r}^{(0)} = \begin{bmatrix} 0 & 1/2 & 0 \\ 0 & 0 & 1 \\ 1 & 1/2 & 0 \end{bmatrix} \begin{bmatrix} 1/3 \\ 1/3 \\ 1/3 \end{bmatrix}
+$$
+
+- Row A: $0 \times \frac{1}{3} + \frac{1}{2} \times \frac{1}{3} + 0 \times \frac{1}{3} = \frac{1}{6}$ ✅
+- Row B: $0 \times \frac{1}{3} + 0 \times \frac{1}{3} + 1 \times \frac{1}{3} = \frac{1}{3}$ ✅
+- Row C: $1 \times \frac{1}{3} + \frac{1}{2} \times \frac{1}{3} + 0 \times \frac{1}{3} = \frac{1}{2}$ ✅
+
+This matches what we computed manually! ✅
+
+After $k$ rounds: $\mathbf{r}^{(k)} = M^k \cdot \mathbf{r}^{(0)}$ (apply M repeatedly, k times).
 
 ---
 
-## 5. Markov Matrices — The Mathematical Foundation
+## Part 5 — Markov Matrices: Why This Always Works
 
-### 5.1 Definition
+### What is a Markov Matrix?
 
-A **Markov matrix** (also called a **stochastic matrix**) is a matrix where:
+A **Markov matrix** (also called a stochastic matrix) is any matrix where **every column adds up to exactly 1**.
 
-$$
-\boxed{\sum_{i} M_{ij} = 1 \quad \text{for every column } j}
-$$
+Check our matrix M:
+- Column 1: $0 + 0 + 1 = 1$ ✅
+- Column 2: $\frac{1}{2} + 0 + \frac{1}{2} = 1$ ✅
+- Column 3: $0 + 1 + 0 = 1$ ✅
 
-Every **column sums to 1**. This is the algebraic formulation of **conservation of total influence** — every unit of rank that flows out of a node is received by exactly one or more other nodes.
+**Why does this column-sum-to-1 rule matter?**
 
-### 5.2 Why Column Sum = 1 Matters
+It's the mathematical way of saying: **every coin that leaves a node must land somewhere**. If you have 0.4 units at node B, and B links to A and C equally, then 0.2 goes to A and 0.2 goes to C. The total stays 0.4. Nothing is created. Nothing disappears.
 
-If every column sums to 1:
+Because of this property, the total across all nodes stays constant through every multiplication:
+$$\text{(total before)} = \text{(total after)} \quad \text{always}$$
 
-$$
-\mathbf{1}^T M = \mathbf{1}^T \quad \Rightarrow \quad \sum_i r_i^{(t+1)} = \sum_i r_i^{(t)}
-$$
-
-The total score is **conserved** through every matrix multiplication. This ensures:
-- No unbounded growth
-- No collapse to zero
-- A stable equilibrium must exist
+This guarantees that the system won't explode to infinity or collapse to zero. **A stable equilibrium must always exist.**
 
 ---
 
-### 5.3 Eigenvalues and Convergence — Mathematical Proof
+### Why Does It Converge? (The Eigenvalue Explanation)
 
-**The key theorem:** For any Markov matrix, the **largest eigenvalue is always exactly $\lambda_1 = 1$**.
+This is the deep mathematics behind why repeated multiplication always settles down.
 
-The **power iteration method** exploits this property:
+**What's an eigenvalue?** When you multiply a matrix M by a special vector $\mathbf{v}$, the result might be the same vector, just scaled:
+$$M \mathbf{v} = \lambda \mathbf{v}$$
+Here, $\lambda$ is the **eigenvalue** and $\mathbf{v}$ is the **eigenvector**. Think of it as: the matrix stretches this vector by a factor of $\lambda$ but doesn't rotate it.
 
-Any initial state vector $\mathbf{r}^{(0)}$ can be written as a **linear combination of eigenvectors**:
+**Key fact about Markov matrices:** Every Markov matrix has a **largest eigenvalue of exactly 1**. All other eigenvalues have absolute value **less than 1** (i.e., $|\lambda| < 1$).
 
-$$
-\mathbf{r}^{(0)} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_n \mathbf{v}_n
-$$
+**Now here's the key insight:**
 
-After $k$ applications of $M$:
+Any starting vector $\mathbf{r}^{(0)}$ can be split into a combination of eigenvectors:
+$$\mathbf{r}^{(0)} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_n \mathbf{v}_n$$
 
-$$
-\mathbf{r}^{(k)} = M^k \mathbf{r}^{(0)} = c_1 \lambda_1^k \mathbf{v}_1 + c_2 \lambda_2^k \mathbf{v}_2 + \cdots + c_n \lambda_n^k \mathbf{v}_n
-$$
+After applying M repeatedly ($k$ times):
+$$\mathbf{r}^{(k)} = c_1 \lambda_1^k \mathbf{v}_1 + c_2 \lambda_2^k \mathbf{v}_2 + \cdots + c_n \lambda_n^k \mathbf{v}_n$$
 
-Now apply the key facts:
-- $\lambda_1 = 1$ → $\lambda_1^k = 1^k = 1$ (remains constant forever)
-- All other eigenvalues $|\lambda_i| < 1$ → $\lambda_i^k \to 0$ as $k \to \infty$
+Now think about what happens as $k$ gets very large:
+- $\lambda_1 = 1$ → $1^k = 1$ → the first term **stays constant forever**
+- $|\lambda_2| < 1$ → $\lambda_2^k \to 0$ → the second term **fades to zero**
+- $|\lambda_3| < 1$ → $\lambda_3^k \to 0$ → the third term **also fades to zero**
+- … and so on for all other terms
 
-Therefore, as $k \to \infty$:
+**What's left?** Only the first term: $c_1 \mathbf{v}_1$. Everything else vanished.
 
-$$
-\boxed{\mathbf{r}^{(k)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1}
-$$
+$$\mathbf{r}^{(k)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1$$
 
-**The "noise" from all sub-dominant eigenvectors vanishes**, leaving only the **principal eigenvector** $\mathbf{v}_1$ associated with $\lambda = 1$.
+The final stable PageRank vector is just the **dominant eigenvector** of M (the one associated with $\lambda = 1$).
 
 ![Markov Matrix Structure & Eigenvalue Convergence Proof](images/hits_markov_eigenvalue.svg)
 
-### 5.4 What This Means
+#### What Does This Mean in Plain English?
 
-| Mathematical fact | Network interpretation |
+| Mathematical Fact | What It Means for PageRank |
 |---|---|
-| $\lambda_1 = 1$ | Dominant eigenvector is the stable PageRank distribution |
-| $|\lambda_i| < 1$ for $i > 1$ | All transient fluctuations die out |
-| Convergence is guaranteed | Any starting vector leads to the same final ranking |
-| The limit is $c_1 \mathbf{v}_1$ | PageRank is the dominant eigenvector of $M$ |
+| $\lambda_1 = 1$ | There is one "final answer" vector that never changes when M is applied to it |
+| All other $|\lambda_i| < 1$ | The "noise" from your starting guess fades away, round by round |
+| Convergence guaranteed | No matter what scores you start with, you always end up at the same final ranking |
+| PageRank = dominant eigenvector | The stable rankings are a fundamental property of the **structure** of the graph, not your initial guess |
 
-> **Fundamental result:** PageRank of a node is NOT a product of computation alone — it is an **intrinsic property of the graph's topology**, revealed by the principal eigenvector of the transition matrix.
+> **Key takeaway:** It doesn't matter if you start with all 1s, all 0.2s, or any random values. You'll always converge to the same final PageRank values. This is what makes PageRank trustworthy — it's not biased by where you start.
 
----
+### The Steady-State Equation
 
-### 5.5 Eigenvector Equation at Steady State
+When PageRank has converged, multiplying by M doesn't change anything:
 
-At convergence, the PageRank vector $\mathbf{r}^*$ satisfies:
+$$M \mathbf{r}^* = \mathbf{r}^*$$
 
-$$
-M \mathbf{r}^* = \mathbf{r}^*
-$$
-
-This means $\mathbf{r}^*$ is an **eigenvector of $M$ with eigenvalue 1**. Expanding:
-
-$$
-M \mathbf{r}^* = 1 \cdot \mathbf{r}^* \implies (M - I)\mathbf{r}^* = \mathbf{0}
-$$
-
-This is the definition of an **eigenvector**: multiplication by $M$ does not change the direction of $\mathbf{r}^*$, only (trivially) its scale by $\lambda = 1$.
+This literally says: "The score distribution after one round is identical to the score distribution before." The system is at rest. The PageRank vector $\mathbf{r}^*$ is the eigenvector of M with eigenvalue 1.
 
 ---
 
-## 6. Dangling Nodes and the Damping Factor
+## Part 6 — The Dangling Node Problem & The Damping Fix
 
-### 6.1 The Dangling Node Problem
+### What's a Dangling Node?
 
-A **dangling node** (sink) has no outgoing edges. In matrix terms, its column in $M$ is all zeros — it **absorbs** probability without redistributing it.
+A **dangling node** is a page with **no outgoing links**. In our matrix, its entire column is all zeros — it receives coins just fine, but it never passes them on to anyone.
 
-This breaks the column-sum-to-1 property, meaning $M$ is no longer a valid Markov matrix, and convergence is no longer guaranteed.
+**The problem:** All those coins pile up at the dangling node and are never recirculated. Eventually, all coins in the system pool at dangling nodes and disappear from the rest of the graph. The column no longer sums to 1 — the Markov property breaks — and convergence is no longer guaranteed.
 
-### 6.2 The Damping Factor Fix
+**Real example:** A newly published research paper. It cites nothing yet. Every day, other papers can cite it (it receives rank), but it doesn't cite back (it gives rank to nobody). Without special handling, this breaks PageRank.
 
-**Teleportation:** With probability $(1-d)$, the surfer jumps to a completely random node instead of following a link.
+---
+
+### The Fix: Teleportation (Damping Factor)
+
+**The idea:** What if the random surfer, instead of always following a link, sometimes just jumps to a completely random page? This prevents them from getting trapped at a dead end.
+
+With **damping factor** $d$ (usually around 0.85):
+- With probability $d$: follow a random outgoing link (normal behavior)
+- With probability $1-d$: jump to any random page in the entire network
 
 The modified PageRank formula:
-
-$$
-\boxed{PR(v) = \frac{1-d}{n} + d \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}}
-$$
-
-Where $d \approx 0.85$ is the **damping factor**.
-
-In matrix form, the modified transition matrix becomes:
-
-$$
-\hat{M} = d \cdot M + \frac{(1-d)}{n} \cdot \mathbf{1}\mathbf{1}^T
-$$
-
-This matrix $\hat{M}$ is:
-- A valid Markov matrix (every column sums to 1)
-- **Irreducible:** every node can reach every other node (via teleportation)
-- **Aperiodic:** no periodic cycles that prevent convergence
-
-These properties guarantee **unique convergence** for any network topology.
-
----
-
-## 7. Assignment — Case Study Reference
-
-### Case Study 1: Social Media Platform (HITS vs. PageRank)
-
-| Question | Answer | Key Reasoning |
-|---|---|---|
-| Strong hub definition | **Follow many authoritative users** | Hub score = sum of authority scores of pointed-to nodes |
-| Why HITS fails on full social graph | **Sensitive to irrelevant parts; lacks global importance** | HITS is query-dependent and topology-sensitive |
-| Authority score from hubs 3 and 5 | **8** | $a = 3 + 5 = 8$ (sum of hub scores) |
-| Why PageRank preferred globally | **Uses the entire link structure** | Single global ranking; no subgraph needed |
-| PageRank convergence mechanisms | **Damping factor < 1 + handling dangling nodes** | These restore the Markov property |
-
-### Case Study 2: Web Search (PageRank Mechanics)
-
-| Question | Answer | Key Reasoning |
-|---|---|---|
-| HITS better suited for | **Topic-specific searches** | Requires building a focused subgraph per query |
-| PageRank anti-stuck mechanisms | **Random jumps + redistributing dangling node rank + following links** | All three restore valid probability flow |
-| Total incoming contribution (0.2+0.1+0.3) | **0.6** | $0.2 + 0.1 + 0.3 = 0.6$ (simple sum before damping) |
-| Why dangling nodes are problematic | **They absorb probability mass** | Without redistribution, total probability < 1 |
-| Why transition probabilities sum to 1 | **To represent a valid random walk (Markov property)** | Non-stochastic matrix has no convergence guarantee |
-
-### Case Study 3: Academic Citation Network
-
-| Question | Answer | Key Reasoning |
-|---|---|---|
-| Authority paper definition | **Cited by many influential papers** | Authority score = sum of hub scores of citing papers |
-| HITS manipulation methods | **Creating hub papers + excessive self-citations** | HITS is locally computed; easy to exploit |
-| Authority from scores 1.5 and 2.5 | **4.0** | $a = 1.5 + 2.5 = 4.0$ |
-| PageRank's manipulation resistance | **Global normalization and damping** | Local exploits don't significantly shift global distribution |
-| Properties improving PageRank stability | **High connectivity + presence of hubs** | Denser networks propagate rank faster; hubs accelerate convergence |
-
----
-
-## 8. Mathematical Concept Quick Reference
-
-### 8.1 HITS Update Equations
-
-$$
-h(v) \leftarrow \sum_{v \to u} a(u) \qquad \text{(Hub update)}
-$$
-
-$$
-a(v) \leftarrow \sum_{u \to v} h(u) \qquad \text{(Authority update)}
-$$
-
-### 8.2 PageRank Recursive Formula
-
-$$
-PR(v) = \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}
-$$
-
-### 8.3 PageRank with Damping
 
 $$
 PR(v) = \frac{1-d}{n} + d \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}
 $$
 
-### 8.4 Normalization (Bipartite Recommender)
+**Breaking this down:**
+- $\frac{1-d}{n}$: a small baseline score that every node gets just for existing (the "teleportation" share)
+- $d \sum \ldots$: the standard PageRank contribution from incoming links, but discounted by factor $d$
 
-$$
-\text{Normalized Score}(x) = \frac{\text{Score}(x)}{\sum_{y \in \text{group}} \text{Score}(y)}
-$$
+With $d = 0.85$:
+- 85% of your score comes from people who specifically linked to you
+- 15% comes from the "jump to random page" effect (spread equally across all $n$ pages)
 
-### 8.5 Markov Matrix Property
-
-$$
-\sum_{i} M_{ij} = 1 \quad \forall j \qquad \Leftrightarrow \qquad \text{Total influence is conserved}
-$$
-
-### 8.6 Eigenvalue Convergence
-
-$$
-M^k \mathbf{r}^{(0)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1 \quad \text{where } M\mathbf{v}_1 = \mathbf{v}_1
-$$
-
-### 8.7 Steady State Condition
-
-$$
-M \mathbf{r}^* = \mathbf{r}^* \quad \Leftrightarrow \quad \mathbf{r}^* \text{ is the eigenvector of } M \text{ with } \lambda = 1
-$$
+**What this achieves:**
+1. Even dangling nodes now distribute their rank (via the 15% random jump).
+2. Every node can now reach every other node (even without a direct link path).
+3. The matrix is a valid Markov matrix again.
+4. Convergence is guaranteed.
 
 ---
 
-## 9. Common Exam Traps & Misconceptions
+## Part 7 — Assignment Case Study Answers
+
+### Case Study 1: Social Media Platform
+
+A social media company tried HITS and PageRank to rank users by influence.
+
+| Question | ✅ Correct Answer | Why |
+|---|---|---|
+| A user is a strong hub because they... | **Follow many authoritative users** | Hub score = sum of authority scores of who you follow. More + better followees = higher hub score |
+| Why did HITS perform poorly on the full graph? | **It is sensitive to irrelevant parts of the graph** AND **it lacks a global notion of importance** | HITS works best on a focused subgraph. On the entire network, unrelated nodes pollute the scores |
+| A user is followed by hubs scoring 3 and 5. Authority score? | **8** | $a = 3 + 5 = 8$ |
+| Why was PageRank preferred for global ranking? | **Uses the entire link structure** | One consistent calculation over the whole graph |
+| What makes PageRank converge? | **Damping factor < 1** AND **handling dangling nodes** | Damping fixes teleportation; dangling node handling restores Markov property |
+
+> ⚠️ **Partial credit trap:** HITS failing has **TWO correct answers**. Writing only one gives you 0.5/1.
+
+---
+
+### Case Study 2: Web Search Engine
+
+A search engine used link analysis to rank billions of webpages.
+
+| Question | ✅ Correct Answer | Why |
+|---|---|---|
+| HITS is better suited than PageRank for... | **Topic-specific searches** | HITS builds a focused subgraph per query — perfect for focused topics, bad for everything |
+| What mechanisms prevent PageRank from getting stuck? | **Random jumps** + **Redistributing rank from dangling nodes** + **Following links most of the time** | All three together ensure valid probability flow at every step |
+| A page gets links from pages with PR 0.2, 0.1, 0.3. Total incoming contribution? | **0.6** | $0.2 + 0.1 + 0.3 = 0.6$ (simple addition before damping is applied) |
+| Why are dangling nodes a problem? | **They absorb probability mass** | Their column in M is all zeros; scores flow in but never flow out → total drops below 1 |
+| Why must probabilities from one page sum to 1? | **To represent a valid random walk** | If probabilities don't sum to 1, the matrix isn't stochastic → no convergence guarantee |
+
+> ⚠️ **Partial credit trap (0.66 trap):** For "mechanisms that prevent PageRank getting stuck," there are THREE correct answers. Missing "following links most of the time" costs you ⅓ of the mark.
+
+---
+
+### Case Study 3: Academic Citation Network
+
+A firm ranked research papers by influence using citation graphs.
+
+| Question | ✅ Correct Answer | Why |
+|---|---|---|
+| What makes a paper an "authority"? | **Is cited by many influential papers** | Authority score = sum of hub scores of papers that cite you |
+| How can someone manipulate HITS scores? | **Creating hub papers that cite many works** AND **excessive self-citations** | HITS is localized — targeted citation spamming can shift hub/authority scores |
+| A paper is cited by papers with authority 1.5 and 2.5. Its authority contribution? | **4.0** | $1.5 + 2.5 = 4.0$ |
+| Why is PageRank resistant to manipulation? | **Uses global normalization and damping** | Local cheating barely moves a global score that's spread across millions of nodes |
+| Which network properties help PageRank stability? | **High connectivity** AND **presence of hubs** | Connected networks propagate rank quickly; hubs act as fast-spreading relay stations |
+
+> ⚠️ **Partial credit trap:** For stability factors, both "high connectivity" AND "presence of hubs" are correct. Community isolation actually hurts stability (rank gets trapped in isolated clusters).
+
+---
+
+## Part 8 — Formula Cheat Sheet
+
+### HITS Formulas
+
+**Hub update** (for every node v):
+$$h(v) \leftarrow \sum_{\text{nodes } u \text{ that } v \text{ links to}} a(u)$$
+
+**Authority update** (for every node v):
+$$a(v) \leftarrow \sum_{\text{nodes } u \text{ that link to } v} h(u)$$
+
+Memory trick: **Hub looks OUT** (sum of authorities it points to). **Authority looks IN** (sum of hubs pointing at it).
+
+### PageRank Formulas
+
+**Basic (no damping):**
+$$PR(v) = \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}$$
+
+**With damping (the real version):**
+$$PR(v) = \frac{1-d}{n} + d \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}$$
+
+### Normalization (Bipartite System)
+
+$$\text{Normalized}(x) = \frac{\text{Score}(x)}{\text{Sum of all scores in same group}}$$
+
+### Markov Matrix Rule
+
+$$\text{Every column of M sums to } 1 \quad \Leftrightarrow \quad \text{Total rank is conserved every round}$$
+
+### Convergence Formula
+
+$$\mathbf{r}^{(k)} = M^k \mathbf{r}^{(0)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1 \quad \text{(the dominant eigenvector)}$$
+
+### Steady State (Convergence Condition)
+
+$$M \mathbf{r}^* = \mathbf{r}^* \quad \longleftrightarrow \quad \text{"Applying M one more time changes nothing"}$$
+
+---
+
+## Part 9 — Exam Traps to Watch Out For
 
 > [!WARNING]
-> **Trap 1: Confusing hub and authority updates**
-> Hub update uses authority scores of OUT-neighbors. Authority update uses hub scores of IN-neighbors. Getting this backwards gives completely wrong answers.
+> **Trap 1: Mixing up hub and authority update directions**
+>
+> **Hub update uses authority scores of OUT-neighbors** (the nodes you point to).
+> **Authority update uses hub scores of IN-neighbors** (the nodes that point to you).
+> Getting this backwards produces completely wrong calculations.
 
 > [!WARNING]
-> **Trap 2: Forgetting both accepted answers for "why HITS fails on full graph"**
-> Both *"sensitive to irrelevant parts"* AND *"lacks global notion of importance"* are correct. Answering only one gives partial credit (0.5/1).
+> **Trap 2: Only one answer for "why HITS fails on large graphs"**
+>
+> There are **two** correct answers: (1) sensitive to irrelevant parts, (2) lacks global notion of importance. The assignment awards 0.5 if you write only one.
 
 > [!WARNING]
-> **Trap 3: Dangling nodes "reduce authority scores" or "break hub calculations"**
-> Wrong. Dangling nodes **absorb probability mass** — this is the precise problem. They drain the total probability sum below 1.
-
-> [!NOTE]
-> **Convergence guarantee:** Both HITS and PageRank are **mathematically guaranteed to converge** for any network topology (given proper handling of sinks and damping for PageRank). The question "does HITS converge?" — YES, it always does.
-
-> [!NOTE]
-> **HITS convergence stability vs. PageRank:** HITS *does converge*, but its *results are unstable* — small changes in the input graph (new user joins) produce large changes in the ranking. PageRank is far more stable to such structural changes.
+> **Trap 3: What's wrong with dangling nodes?**
+>
+> The answer is: they **absorb probability mass**. They do NOT "reduce authority scores" or "break hub calculations" (those are wrong). The specific problem is that their column in M sums to 0, not 1 — so probability leaks out of the system.
 
 > [!CAUTION]
-> **PageRank convergence mechanisms (Case Study 2, partial answer trap):** Three mechanisms help: (1) random jumps, (2) redistributing dangling node rank, (3) following links most of the time. Missing the third gives 0.66/1 instead of 1/1.
+> **Trap 4: Three mechanisms for PageRank avoiding getting stuck (not two)**
+>
+> All three are correct: (1) random jumps, (2) redistributing rank from dangling nodes, (3) **following links most of the time**. Leaving out the third costs ⅓ of the marks (you'd get 0.66/1 instead of 1/1).
 
 > [!CAUTION]
-> **PageRank stability (Case Study 3):** Both *"high connectivity"* AND *"presence of hubs"* improve stability. *Uniform degree distribution* and *strong community isolation* do NOT help — isolation impedes rank propagation.
+> **Trap 5: "Uniform degree distribution" helps PageRank stability**
+>
+> It does NOT. Uniform distribution means no hubs, which actually slows down rank propagation. The correct answers are **high connectivity** and **presence of hubs**.
+
+> [!NOTE]
+> **Good news — convergence:** Both HITS and PageRank (with damping) are mathematically guaranteed to converge regardless of the starting values. You never need to worry about whether they'll converge — they always do.
+
+> [!NOTE]
+> **HITS converges but is unstable:** HITS *does* converge, but adding or removing even one node from the graph can shift the converged values dramatically. PageRank is stable to small changes. "HITS converges" and "HITS is stable" are different statements — only the first is always true.
 
 ---
 
-## 10. Conceptual Summary
+## Part 10 — Big Picture Summary
+
+Here's the whole topic in simple terms:
+
+**Recommender Systems** → Two groups (recommenders, resources). Recommenders score high if their resources are good. Resources score high if good recommenders endorse them. Iterate → normalize → repeat until stable.
+
+**HITS** → Same idea, but every node plays BOTH roles (hub and authority). Hub = good pointer. Authority = good destination. They reinforce each other. Works best on small, focused subgraphs.
+
+**PageRank** → Every node has one score. You get score proportional to who links to you, weighted by their score and how selective they are. Works well globally. Needs damping factor to handle dead ends.
+
+**The Maths** → All three are forms of iterated matrix multiplication on a Markov matrix. The scores always converge because the dominant eigenvalue is 1 and all others shrink to zero. The final stable scores are the dominant eigenvector of the transition matrix.
 
 ```
-BIPARTITE RECOMMENDER SYSTEM
-  ├─ Nodes: Recommenders (hubs) + Resources (authorities)
-  ├─ Scoring: score(recommender) = Σ score(resources it points to)
-  │           score(resource) = Σ score(recommenders pointing to it)
-  └─ Normalize after each round → iterate to convergence
-
-HITS (General Directed Graphs)
-  ├─ Every node has BOTH hub score AND authority score
-  ├─ Hub score = Σ authority scores of out-neighbors
-  ├─ Authority score = Σ hub scores of in-neighbors
-  ├─ Normalize → repeat
-  └─ Best for: topic-specific, query-dependent ranking
-
-PAGE RANK (Global Directed Graphs)
-  ├─ Every node has ONE score
-  ├─ PR(v) = Σ PR(u)/out-degree(u) over all u→v
-  ├─ Damping factor handles sinks, ensures Markov property
-  ├─ Matrix form: r = M·r at steady state (eigenvector equation)
-  └─ Best for: global, stable, scalable ranking
-
-MATHEMATICAL GUARANTEE
-  ├─ Transition matrix M is a Markov matrix (columns sum to 1)
-  ├─ Largest eigenvalue λ₁ = 1
-  ├─ All other |λᵢ| < 1 → their contribution → 0 over iterations
-  └─ Convergence to principal eigenvector v₁ is guaranteed
+Problem: "Who is important in this network?"
+   ↓
+Model links as a directed graph
+   ↓
+Build a transition matrix M (columns sum to 1)
+   ↓
+Start with equal scores r⁰
+   ↓
+Multiply: rᵏ⁺¹ = M · rᵏ   (repeat ~100-200 times)
+   ↓
+Scores converge (λ₁=1 dominates, others decay to 0)
+   ↓
+Final scores = PageRank / HITS authority or hub scores
 ```
 
 ---
 
-> The full Python implementation for PageRank is in [`code/07_pagerank.py`](code/07_pagerank.py).
-> See also: [`07_PageRank_and_Web_Graph.md`](07_PageRank_and_Web_Graph.md) for damping factor worked examples and the random walk model.
+> See [`07_PageRank_and_Web_Graph.md`](07_PageRank_and_Web_Graph.md) for worked damping factor calculations and the random walk simulation method.
+> See [`code/07_pagerank.py`](code/07_pagerank.py) for the Python implementation.
