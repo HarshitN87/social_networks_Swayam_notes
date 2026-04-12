@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="400" viewBox="0 0 680 400" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arr-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <marker id="arr-grey" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#94a3b8"/>
+    </marker>
+  </defs>
+  <rect width="680" height="400" fill="#f8fafc" rx="14" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="340" y="30" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">Community Structure — Cascade Spread &amp; Blocking</text>
+
+  <!-- ══ LEFT CLUSTER (cascade in progress, red = adopted) ══ -->
+  <!-- Cluster boundary oval -->
+  <ellipse cx="178" cy="210" rx="148" ry="155" fill="#fef2f2" stroke="#fca5a5" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="178" y="66" text-anchor="middle" font-size="12" font-weight="bold" fill="#991b1b">Community A (Cascade Active)</text>
+
+  <!-- Dense edges within cluster A (red community) -->
+  <!-- Node positions: hub=178,180; 1=110,130; 2=245,130; 3=100,220; 4=255,220; 5=150,305; 6=210,305 -->
+  <!-- Internal edges -->
+  <line x1="178" y1="180" x2="118" y2="135" stroke="#fca5a5" stroke-width="1.5"/>
+  <line x1="178" y1="180" x2="240" y2="135" stroke="#fca5a5" stroke-width="1.5"/>
+  <line x1="178" y1="180" x2="108" y2="220" stroke="#fca5a5" stroke-width="1.5"/>
+  <line x1="178" y1="180" x2="248" y2="220" stroke="#fca5a5" stroke-width="1.5"/>
+  <line x1="178" y1="180" x2="158" y2="300" stroke="#fca5a5" stroke-width="1.5"/>
+  <line x1="178" y1="180" x2="200" y2="300" stroke="#fca5a5" stroke-width="1.5"/>
+  <line x1="118" y1="135" x2="240" y2="135" stroke="#fca5a5" stroke-width="1"/>
+  <line x1="108" y1="220" x2="118" y2="135" stroke="#fca5a5" stroke-width="1"/>
+  <line x1="248" y1="220" x2="240" y2="135" stroke="#fca5a5" stroke-width="1"/>
+  <line x1="158" y1="300" x2="108" y2="220" stroke="#fca5a5" stroke-width="1"/>
+  <line x1="200" y1="300" x2="248" y2="220" stroke="#fca5a5" stroke-width="1"/>
+
+  <!-- Cluster A nodes (all adopted = red) -->
+  <circle cx="178" cy="180" r="22" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="178" y="176" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Hub</text>
+  <text x="178" y="188" text-anchor="middle" font-size="9" fill="#fee2e2">🔴 B</text>
+
+  <circle cx="118" cy="130" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="118" y="134" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+
+  <circle cx="240" cy="130" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="240" y="134" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+
+  <circle cx="108" cy="222" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="108" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+
+  <circle cx="248" cy="222" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="248" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+
+  <circle cx="158" cy="305" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="158" y="309" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+
+  <circle cx="200" cy="305" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="200" y="309" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+
+  <!-- ══ WEAK BRIDGE ══ -->
+  <!-- Boundary node in A -->
+  <circle cx="312" cy="210" r="17" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="312" y="214" text-anchor="middle" font-size="9" font-weight="bold" fill="white">🔴 B</text>
+  <line x1="265" y1="222" x2="297" y2="215" stroke="#fca5a5" stroke-width="1"/>
+
+  <!-- The weak bridge link -->
+  <line x1="330" y1="210" x2="376" y2="210" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+  <text x="353" y="200" text-anchor="middle" font-size="10" fill="#64748b" font-weight="bold">Weak tie</text>
+  <text x="353" y="220" text-anchor="middle" font-size="9" fill="#64748b">(low fraction)</text>
+
+  <!-- ══ RIGHT CLUSTER (dense, cascade blocked) ══ -->
+  <ellipse cx="525" cy="210" rx="142" ry="155" fill="#eff6ff" stroke="#93c5fd" stroke-width="2" stroke-dasharray="5 3"/>
+  <text x="525" y="66" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">Community B (Dense — Blocked)</text>
+
+  <!-- Dense edges within cluster B (blue, NOT adopted) -->
+  <!-- Nodes: hub=525,180; 1=460,130; 2=590,130; 3=448,220; 4=602,220; 5=478,305; 6=572,305 -->
+  <!-- Many internal edges (near-complete graph = very dense) -->
+  <line x1="525" y1="180" x2="463" y2="133" stroke="#93c5fd" stroke-width="1.5"/>
+  <line x1="525" y1="180" x2="587" y2="133" stroke="#93c5fd" stroke-width="1.5"/>
+  <line x1="525" y1="180" x2="452" y2="222" stroke="#93c5fd" stroke-width="1.5"/>
+  <line x1="525" y1="180" x2="598" y2="222" stroke="#93c5fd" stroke-width="1.5"/>
+  <line x1="525" y1="180" x2="479" y2="300" stroke="#93c5fd" stroke-width="1.5"/>
+  <line x1="525" y1="180" x2="571" y2="300" stroke="#93c5fd" stroke-width="1.5"/>
+  <line x1="463" y1="133" x2="587" y2="133" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="452" y1="222" x2="463" y2="133" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="598" y1="222" x2="587" y2="133" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="452" y1="222" x2="598" y2="222" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="479" y1="300" x2="452" y2="222" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="571" y1="300" x2="598" y2="222" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="479" y1="300" x2="571" y2="300" stroke="#93c5fd" stroke-width="1"/>
+  <line x1="463" y1="133" x2="452" y2="222" stroke="#93c5fd" stroke-width="0.8"/>
+  <line x1="587" y1="133" x2="598" y2="222" stroke="#93c5fd" stroke-width="0.8"/>
+
+  <!-- Boundary node in B (receives the cascade but stays grey) -->
+  <circle cx="394" cy="210" r="17" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+  <text x="394" y="214" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <!-- Cluster B nodes (all staying grey) -->
+  <circle cx="525" cy="180" r="22" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="525" y="176" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Hub</text>
+  <text x="525" y="188" text-anchor="middle" font-size="9" fill="#dbeafe">⚪ A</text>
+
+  <circle cx="463" cy="130" r="17" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="463" y="134" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <circle cx="587" cy="130" r="17" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="587" y="134" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <circle cx="452" cy="222" r="17" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="452" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <circle cx="598" cy="222" r="17" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="598" y="226" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <circle cx="479" cy="305" r="17" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="479" y="309" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <circle cx="571" cy="305" r="17" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="571" y="309" text-anchor="middle" font-size="9" font-weight="bold" fill="white">⚪ A</text>
+
+  <!-- Blocked annotation -->
+  <rect x="416" y="342" width="226" height="46" rx="8" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="529" y="360" text-anchor="middle" font-size="11" fill="#713f12" font-weight="bold">🚫 CASCADE BLOCKED</text>
+  <text x="529" y="378" text-anchor="middle" font-size="10" fill="#713f12">density &gt; (1−q) → fraction from outside</text>
+  <text x="529" y="390" text-anchor="middle" font-size="10" fill="#713f12">never reaches threshold q</text>
+</svg>

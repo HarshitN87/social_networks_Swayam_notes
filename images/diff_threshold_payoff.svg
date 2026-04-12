@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="400" viewBox="0 0 680 400" font-family="Arial, sans-serif">
+  <rect width="680" height="400" fill="#f8fafc" rx="14" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="340" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">Threshold Model — When Do You Switch to Behaviour B?</text>
+  <text x="340" y="50" text-anchor="middle" font-size="11" fill="#64748b">Library (A, payoff=2) vs Fun (B, payoff=3) with 20 friends</text>
+
+  <!-- ══ LEFT: The Setup ══ -->
+  <rect x="14" y="62" width="300" height="240" rx="10" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="164" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Your 20 Friends' Choices</text>
+
+  <!-- Library side (blue) -->
+  <!-- Row of 15 library friends -->
+  <text x="25" y="105" font-size="11" fill="#1d4ed8" font-weight="bold">Library (A) — 15 friends</text>
+  <!-- Draw 15 small circles in a 5×3 grid -->
+  <g fill="#3b82f6" stroke="#1d4ed8" stroke-width="1">
+    <!-- row 1 -->
+    <circle cx="42"  cy="122" r="10"/>
+    <circle cx="68"  cy="122" r="10"/>
+    <circle cx="94"  cy="122" r="10"/>
+    <circle cx="120" cy="122" r="10"/>
+    <circle cx="146" cy="122" r="10"/>
+    <!-- row 2 -->
+    <circle cx="42"  cy="148" r="10"/>
+    <circle cx="68"  cy="148" r="10"/>
+    <circle cx="94"  cy="148" r="10"/>
+    <circle cx="120" cy="148" r="10"/>
+    <circle cx="146" cy="148" r="10"/>
+    <!-- row 3 -->
+    <circle cx="42"  cy="174" r="10"/>
+    <circle cx="68"  cy="174" r="10"/>
+    <circle cx="94"  cy="174" r="10"/>
+    <circle cx="120" cy="174" r="10"/>
+    <circle cx="146" cy="174" r="10"/>
+  </g>
+  <text x="25"  cy="122" y="127" font-size="8" fill="white">A</text>
+
+  <!-- Fun side (orange) -->
+  <text x="175" y="105" font-size="11" fill="#9a3412" font-weight="bold">Fun (B) — 5 friends</text>
+  <g fill="#f97316" stroke="#c2410c" stroke-width="1">
+    <circle cx="185" cy="122" r="10"/>
+    <circle cx="211" cy="122" r="10"/>
+    <circle cx="237" cy="122" r="10"/>
+    <circle cx="263" cy="122" r="10"/>
+    <circle cx="289" cy="122" r="10"/>
+  </g>
+
+  <!-- YOU node -->
+  <circle cx="164" cy="208" r="24" fill="#7c3aed" stroke="#5b21b6" stroke-width="2.5"/>
+  <text x="164" y="204" text-anchor="middle" font-size="12" font-weight="bold" fill="white">YOU</text>
+  <text x="164" y="218" text-anchor="middle" font-size="9" fill="#ede9fe">deciding</text>
+
+  <!-- Arrows from YOU to both groups -->
+  <text x="100" y="198" text-anchor="middle" font-size="9" fill="#1d4ed8">← consider these</text>
+  <text x="232" y="198" text-anchor="middle" font-size="9" fill="#c2410c">consider these →</text>
+
+  <!-- ══ MIDDLE: Payoff Calculation ══ -->
+  <rect x="328" y="62" width="180" height="240" rx="10" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="418" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">Payoff Calculation</text>
+
+  <!-- Payoff A -->
+  <rect x="344" y="96" width="148" height="70" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="418" y="116" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d4ed8">Option A (Library)</text>
+  <text x="418" y="136" text-anchor="middle" font-size="12" fill="#1e293b">15 × 2 = 30</text>
+  <text x="418" y="156" text-anchor="middle" font-size="10" fill="#64748b">friends × payoff_a</text>
+
+  <!-- Payoff B -->
+  <rect x="344" y="180" width="148" height="70" rx="8" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+  <text x="418" y="200" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2410c">Option B (Fun)</text>
+  <text x="418" y="220" text-anchor="middle" font-size="12" fill="#1e293b">5 × 3 = 15</text>
+  <text x="418" y="240" text-anchor="middle" font-size="10" fill="#64748b">friends × payoff_b</text>
+
+  <!-- Winner label -->
+  <text x="418" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#15803d">30 &gt; 15 → Choose A ✓</text>
+  <text x="418" y="294" text-anchor="middle" font-size="10" fill="#64748b">Even though fun has payoff 3 &gt; 2</text>
+
+  <!-- ══ RIGHT: Threshold Formula ══ -->
+  <rect x="522" y="62" width="148" height="240" rx="10" fill="white" stroke="#e2e8f0" stroke-width="1.5"/>
+  <text x="596" y="84" text-anchor="middle" font-size="12" font-weight="bold" fill="#475569">The Threshold</text>
+
+  <!-- Formula box -->
+  <rect x="534" y="94" width="124" height="48" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="596" y="114" text-anchor="middle" font-size="11" fill="#5b21b6" font-weight="bold">q = a / (a + b)</text>
+  <text x="596" y="130" text-anchor="middle" font-size="11" fill="#5b21b6">= 2 / (2+3) = 0.40</text>
+
+  <text x="596" y="162" text-anchor="middle" font-size="10" fill="#475569">Switch to B only if</text>
+  <text x="596" y="178" text-anchor="middle" font-size="10" fill="#475569">fraction on B ≥ 0.40</text>
+
+  <!-- Current fraction -->
+  <rect x="534" y="188" width="124" height="38" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="596" y="204" text-anchor="middle" font-size="11" fill="#b91c1c">5/20 = 0.25</text>
+  <text x="596" y="219" text-anchor="middle" font-size="10" fill="#b91c1c">0.25 &lt; 0.40 → Stay A</text>
+
+  <!-- Arrow showing what changes it -->
+  <text x="596" y="254" text-anchor="middle" font-size="10" fill="#475569">Need ≥ 8/20 = 0.40</text>
+  <text x="596" y="270" text-anchor="middle" font-size="10" fill="#475569">to switch to B</text>
+  <text x="596" y="286" text-anchor="middle" font-size="10" fill="#475569">↑ 3 more friends</text>
+  <text x="596" y="300" text-anchor="middle" font-size="10" fill="#475569">must choose fun</text>
+
+  <!-- Bottom formula bar -->
+  <rect x="14" y="316" width="652" height="72" rx="10" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="340" y="338" text-anchor="middle" font-size="13" font-weight="bold" fill="#713f12">Threshold q = a/(a+b) = payoff_old / (payoff_old + payoff_new)</text>
+  <text x="340" y="358" text-anchor="middle" font-size="11" fill="#92400e">You switch to B if fraction of friends on B ≥ q</text>
+  <text x="340" y="378" text-anchor="middle" font-size="11" fill="#92400e">Higher payoff_b → lower q → easier cascade  |  Higher payoff_a → higher q → harder cascade</text>
+</svg>
