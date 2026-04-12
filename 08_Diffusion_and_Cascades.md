@@ -56,21 +56,33 @@ Each option gives a **payoff per matching friend**:
 
 Suppose you have **n** friends total, and **k** of them have already switched to B.
 
-$$\text{Payoff}_A = (n - k) \times a \qquad \text{Payoff}_B = k \times b$$
+$$
+\text{Payoff}_A = (n - k) \times a \qquad \text{Payoff}_B = k \times b
+$$
 
 **You switch to B when:** $\text{Payoff}_B > \text{Payoff}_A$
 
-$$k \times b > (n - k) \times a$$
+$$
+k \times b > (n - k) \times a
+$$
 
-$$k \times b > n \cdot a - k \cdot a$$
+$$
+k \times b > n \cdot a - k \cdot a
+$$
 
-$$k(a + b) > n \cdot a$$
+$$
+k(a + b) > n \cdot a
+$$
 
-$$\frac{k}{n} > \frac{a}{a + b} \equiv q \quad \leftarrow \textbf{The Threshold}$$
+$$
+\frac{k}{n} > \frac{a}{a + b} \equiv q \quad \leftarrow \textbf{The Threshold}
+$$
 
 ### The Threshold Formula
 
-$$\boxed{q = \frac{a}{a + b}}$$
+$$
+\boxed{q = \frac{a}{a + b}}
+$$
 
 - $q$ is the **fraction of your friends** that must choose B before you switch
 - If the fraction of your neighbours on B exceeds $q$ → you switch to B
@@ -88,9 +100,13 @@ You need **at least 40% of friends** on "fun" before you switch.
 
 **Specific case:** You have 20 friends — 15 choose library, 5 choose fun.
 
-$$\text{Fraction on B} = \frac{5}{20} = 0.25 < 0.40 \; (= q)$$
+$$
+\text{Fraction on B} = \frac{5}{20} = 0.25 < 0.40 \; (= q)
+$$
 
-$$\text{Payoff}_A = 15 \times 2 = 30 \qquad \text{Payoff}_B = 5 \times 3 = 15$$
+$$
+\text{Payoff}_A = 15 \times 2 = 30 \qquad \text{Payoff}_B = 5 \times 3 = 15
+$$
 
 → **You stay with Library**, even though fun has higher individual payoff ($b > a$).
 
@@ -109,16 +125,27 @@ The coordination game generalises to the standard **Linear Threshold Model**:
 
 ### Threshold Calculation for Assignments
 
-$$\text{Number of neighbours that must adopt} = \lceil q \times \text{degree} \rceil$$
+$$
+\text{Number of neighbours that must adopt} = \lceil q \times \text{degree} \rceil
+$$
 
 **Assignment Case Study 1:** 20 connections, threshold $q = 0.25$
-$$0.25 \times 20 = \mathbf{5} \text{ friends must share first}$$
+
+$$
+0.25 \times 20 = \mathbf{5} \text{ friends must share first}
+$$
 
 **Assignment Case Study 2:** 14 contacts, threshold $q = 0.5$
-$$0.5 \times 14 = \mathbf{7} \text{ contacts must adopt first}$$
+
+$$
+0.5 \times 14 = \mathbf{7} \text{ contacts must adopt first}
+$$
 
 **Assignment Case Study 3 (Banks):** 12 counterparties, threshold $q = 0.25$
-$$0.25 \times 12 = \mathbf{3} \text{ counterparty defaults trigger failure}$$
+
+$$
+0.25 \times 12 = \mathbf{3} \text{ counterparty defaults trigger failure}
+$$
 
 ---
 
@@ -185,7 +212,10 @@ If a cluster is very dense internally, each node in it has many neighbours *with
 ### Formula
 
 A cluster of $k$ nodes blocks a cascade if:
-$$\text{density} = \frac{\text{edges within cluster}}{\binom{k}{2}} > 1 - q$$
+
+$$
+\text{density} = \frac{\text{edges within cluster}}{\binom{k}{2}} > 1 - q
+$$
 
 ### Interpretation
 
@@ -204,7 +234,9 @@ $$\text{density} = \frac{\text{edges within cluster}}{\binom{k}{2}} > 1 - q$$
 
 If the **payoff advantage of the new behaviour increases** (b ↑ while a stays fixed):
 
-$$q = \frac{a}{a + b} \downarrow$$
+$$
+q = \frac{a}{a + b} \downarrow
+$$
 
 A lower threshold means:
 - Fewer neighbours need to adopt before you do
@@ -247,7 +279,9 @@ This is the **collective action problem**: each individual would act *if enough 
 
 Each person $i$ has a personal threshold $t_i$: the **minimum number of participants** (including themselves) they need before they'll join.
 
-$$\text{Person } i \text{ joins if } |\text{current participants}| \geq t_i$$
+$$
+\text{Person } i \text{ joins if } |\text{current participants}| \geq t_i
+$$
 
 ### The Information Problem
 

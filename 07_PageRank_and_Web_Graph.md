@@ -41,7 +41,9 @@ A **random walk** on a graph: start at any node, randomly follow an outgoing edg
 
 For a graph with **n nodes**, the expected number of steps to visit nearly all nodes is approximately:
 
-$$\text{Steps} \approx n \ln n$$
+$$
+\text{Steps} \approx n \ln n
+$$
 
 where $\ln$ is the natural logarithm.
 
@@ -51,7 +53,9 @@ This arises from the **Coupon Collector's Problem**: imagine you need to collect
 
 ### Worked Example (Assignment Q1 — TrendHub, 8,000 creators)
 
-$$\text{Steps} \approx 8000 \times \ln(8000) = 8000 \times 8.987 \approx 71,898 \approx \textbf{72,000}$$
+$$
+\text{Steps} \approx 8000 \times \ln(8000) = 8000 \times 8.987 \approx 71{,}898 \approx \mathbf{72{,}000}
+$$
 
 > ✅ **Answer: Approximately 72,000 random walk steps** are required for comprehensive mapping.
 
@@ -88,7 +92,9 @@ People who are endorsed by many important people accumulate more coins. The coin
 
 For a node $v$ in a directed graph, PageRank is defined **recursively**:
 
-$$PR(v) = \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}$$
+$$
+PR(v) = \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}
+$$
 
 Where:
 - The sum is over all nodes $u$ that have an edge **pointing to** $v$
@@ -147,14 +153,19 @@ In basketball PageRank:
 - So winning teams accumulate **incoming edges** (get points); losing teams distribute their points to whoever beat them
 
 **Example from assignment:** Team Alpha has 240 points and lost to exactly 3 opponents.
-$$\text{Points each opponent receives} = \frac{240}{3} = \textbf{80 points}$$
+
+$$
+\text{Points each opponent receives} = \frac{240}{3} = \mathbf{80 \text{ points}}
+$$
 
 **Multi-team calculation (Assignment):**
 - Team A: 500 pts, lost to B and C → B gets $\frac{500}{2} = 250$, C gets $\frac{500}{2} = 250$
 - Team D: 300 pts, lost only to B → B gets $\frac{300}{1} = 300$
 - Team E: 200 pts, lost to B, C, D → B gets $\frac{200}{3} \approx 66.67$
 
-$$\text{Total for Team B} = 250 + 300 + 66.67 \approx \textbf{617}$$
+$$
+\text{Total for Team B} = 250 + 300 + 66.67 \approx \mathbf{617}
+$$
 
 ---
 
@@ -170,7 +181,9 @@ A **sink node** is a node with **no outgoing edges** (e.g., a webpage with no li
 
 Introduce a **damping factor** $d$ (typically 0.85 or 0.8):
 
-$$PR_{new}(v) = \frac{1-d}{n} + d \cdot \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}$$
+$$
+PR_{new}(v) = \frac{1-d}{n} + d \cdot \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}
+$$
 
 **What this means:**
 - With probability $d$: follow a random outgoing link (normal walk)
@@ -184,15 +197,23 @@ For the **points distribution method** with damping factor $s = 0.8$:
 
 A paper has **250 points**, $s = 0.8$, network has $n = 500$ papers each starting at 100 pts.
 
-Total points in system = $500 \times 100 = 50,000$
+Total points in system = $500 \times 100 = 50{,}000$
 
 **Step 1 — Retain:**
-$$250 \times 0.8 = \textbf{200 points retained}$$
+
+$$
+250 \times 0.8 = \mathbf{200 \text{ points retained}}
+$$
 
 **Step 2 — Redistribution pool:**
-$$50,000 \times (1 - 0.8) = 50,000 \times 0.2 = 10,000 \text{ total redistributed}$$
 
-$$\text{Each paper receives} = \frac{10,000}{500} = \textbf{10 points}$$
+$$
+50{,}000 \times (1 - 0.8) = 50{,}000 \times 0.2 = 10{,}000 \text{ total redistributed}
+$$
+
+$$
+\text{Each paper receives} = \frac{10{,}000}{500} = \mathbf{10 \text{ points}}
+$$
 
 > ✅ **Answer: 200 points retained + 10 points from redistribution = 210 total**
 
@@ -222,7 +243,9 @@ The random walk's long-run visit frequency = the PageRank score.
 
 TrendHub ran 100,000 random discovery journeys. Creator Jordan was visited **3,500 times**.
 
-$$\text{Percentage} = \frac{3500}{100000} \times 100 = \textbf{3.5\%}$$
+$$
+\text{Percentage} = \frac{3500}{100000} \times 100 = \mathbf{3.5\%}
+$$
 
 > ✅ **Answer: 3.5**
 
@@ -245,11 +268,13 @@ A node CAN have:
 
 ### The Ratio Test (Case Study 3 Assignment Calculation)
 
-Paper 1: $\text{in-degree} = 5$, $PR = 0.0087$ → ratio = $\frac{0.0087}{5} = 0.00174$
+Paper 1: $\text{in-degree} = 5$, $PR = 0.0087$ → ratio $= \frac{0.0087}{5} = 0.00174$
 
-Paper 2: $\text{in-degree} = 150$, $PR = 0.0031$ → ratio = $\frac{0.0031}{150} = 0.0000207$
+Paper 2: $\text{in-degree} = 150$, $PR = 0.0031$ → ratio $= \frac{0.0031}{150} = 0.0000207$
 
-$$\frac{\text{ratio}_1}{\text{ratio}_2} = \frac{0.00174}{0.0000207} \approx \textbf{84.00}$$
+$$
+\frac{\text{ratio}_1}{\text{ratio}_2} = \frac{0.00174}{0.0000207} \approx \mathbf{84.00}
+$$
 
 ![PageRank vs. In-Degree Rank — Why They Differ](images/pr_vs_degree_rank.svg)
 
@@ -325,7 +350,7 @@ This creates **network flow where losers distribute authority to winners** — e
 
 | Question | Answer | Key Formula |
 |---|---|---|
-| TrendHub n=8,000 walk steps | **72,000** | $8000 \times \ln(8000) \approx 71,898$ |
+| TrendHub n=8,000 walk steps | **72,000** | $8000 \times \ln(8000) \approx 71{,}898$ |
 | Creator A influence point distribution | **Thin (÷ 500 recipients)** | Each gets $\frac{PR_A}{500}$ |
 | Creator B vs A despite fewer followers | **B can rank higher** | Quality + selectivity of endorsers matters |
 | Creator B's selectivity value | **More valuable endorsements** | Small out-degree → large fraction received |
