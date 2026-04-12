@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380">
+  <defs>
+    <linearGradient id="normalG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6366f1" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="powerG" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f97316" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#f97316" stop-opacity="0.05"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="380" fill="#1e1b4b" rx="12"/>
+  <text x="350" y="28" text-anchor="middle" fill="#e0e7ff" font-family="Arial" font-size="16" font-weight="bold">Power Law vs Normal Distribution</text>
+
+  <!-- LEFT: Normal Distribution -->
+  <text x="185" y="55" text-anchor="middle" fill="#818cf8" font-family="Arial" font-size="13" font-weight="bold">Normal (Bell Curve)</text>
+  <line x1="60" y1="300" x2="330" y2="300" stroke="#818cf8" stroke-width="1.5"/>
+  <line x1="60" y1="300" x2="60" y2="70" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="195" y="325" text-anchor="middle" fill="#a5b4fc" font-family="Arial" font-size="10">Degree (k)</text>
+  <text x="40" y="185" text-anchor="middle" fill="#a5b4fc" font-family="Arial" font-size="10" transform="rotate(-90, 40, 185)">P(k)</text>
+  <!-- Bell curve -->
+  <path d="M 65,298 Q 80,295 100,285 Q 120,260 140,220 Q 160,150 180,100 Q 195,80 200,78 Q 205,80 220,100 Q 240,150 260,220 Q 280,260 300,285 Q 315,295 325,298" fill="url(#normalG)" stroke="#818cf8" stroke-width="2.5"/>
+  <!-- Peak annotation -->
+  <line x1="200" y1="78" x2="200" y2="300" stroke="#fbbf24" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="200" y="315" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="9">mean</text>
+  <text x="200" y="72" text-anchor="middle" fill="#34d399" font-family="Arial" font-size="9">Peak</text>
+  <!-- No hubs label -->
+  <rect x="100" y="335" width="200" height="22" fill="#312e81" rx="4"/>
+  <text x="200" y="350" text-anchor="middle" fill="#c7d2fe" font-family="Arial" font-size="10">No extreme outliers (no hubs)</text>
+
+  <!-- RIGHT: Power Law -->
+  <text x="520" y="55" text-anchor="middle" fill="#fb923c" font-family="Arial" font-size="13" font-weight="bold">Power Law (1/k^α)</text>
+  <line x1="380" y1="300" x2="670" y2="300" stroke="#fb923c" stroke-width="1.5"/>
+  <line x1="380" y1="300" x2="380" y2="70" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="525" y="325" text-anchor="middle" fill="#fdba74" font-family="Arial" font-size="10">Degree (k)</text>
+  <text x="360" y="185" text-anchor="middle" fill="#fdba74" font-family="Arial" font-size="10" transform="rotate(-90, 360, 185)">P(k)</text>
+  <!-- Power law curve -->
+  <path d="M 385,80 Q 390,120 400,180 Q 410,220 425,250 Q 445,270 470,280 Q 500,288 530,292 Q 560,295 590,297 Q 620,298 660,299" fill="url(#powerG)" stroke="#fb923c" stroke-width="2.5"/>
+  <!-- Long tail annotation -->
+  <path d="M 500,290 L 650,290" stroke="#f87171" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="580" y="284" text-anchor="middle" fill="#f87171" font-family="Arial" font-size="9">Long Tail (hubs live here)</text>
+  <!-- Sharp drop annotation -->
+  <text x="395" y="75" text-anchor="start" fill="#34d399" font-family="Arial" font-size="9">Sharp</text>
+  <text x="395" y="86" text-anchor="start" fill="#34d399" font-family="Arial" font-size="9">drop</text>
+  <!-- Hub label -->
+  <rect x="420" y="335" width="200" height="22" fill="#431407" rx="4"/>
+  <text x="520" y="350" text-anchor="middle" fill="#fdba74" font-family="Arial" font-size="10">Extreme hubs exist (long tail)</text>
+
+  <!-- VS divider -->
+  <line x1="350" y1="50" x2="350" y2="360" stroke="#4f46e5" stroke-width="1" stroke-dasharray="8,4"/>
+  <circle cx="350" cy="185" r="16" fill="#4f46e5"/>
+  <text x="350" y="190" text-anchor="middle" fill="white" font-family="Arial" font-size="11" font-weight="bold">vs</text>
+</svg>

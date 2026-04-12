@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400">
+  <rect width="700" height="400" fill="#1e1b4b" rx="12"/>
+  <text x="350" y="28" text-anchor="middle" fill="#e0e7ff" font-family="Arial" font-size="16" font-weight="bold">Rich Get Richer — How Early Luck Creates Permanent Inequality</text>
+
+  <!-- Music Experiment -->
+  <rect x="30" y="45" width="300" height="170" fill="#312e81" stroke="#4f46e5" stroke-width="2" rx="8"/>
+  <text x="180" y="68" text-anchor="middle" fill="#c7d2fe" font-family="Arial" font-size="13" font-weight="bold">🎵 Music Experiment</text>
+
+  <!-- Portal A -->
+  <rect x="50" y="80" width="120" height="55" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" rx="5"/>
+  <text x="110" y="96" text-anchor="middle" fill="#a5b4fc" font-family="Arial" font-size="10" font-weight="bold">Portal A</text>
+  <text x="110" y="110" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="9">Song 7 wins ★</text>
+  <text x="110" y="124" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="8">(early random lead)</text>
+
+  <!-- Portal B -->
+  <rect x="190" y="80" width="120" height="55" fill="#1e1b4b" stroke="#818cf8" stroke-width="1" rx="5"/>
+  <text x="250" y="96" text-anchor="middle" fill="#a5b4fc" font-family="Arial" font-size="10" font-weight="bold">Portal B</text>
+  <text x="250" y="110" text-anchor="middle" fill="#34d399" font-family="Arial" font-size="9">Song 23 wins ★</text>
+  <text x="250" y="124" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="8">(different lucky early pick)</text>
+
+  <text x="180" y="155" text-anchor="middle" fill="#f87171" font-family="Arial" font-size="10" font-weight="bold">Same 48 songs → Different winners!</text>
+  <text x="180" y="172" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="9">Visible download counts amplify early randomness</text>
+  <text x="180" y="205" text-anchor="middle" fill="#e0e7ff" font-family="Arial" font-size="10">→ Quality ≠ Popularity when feedback is visible</text>
+
+  <!-- Q&A Platform -->
+  <rect x="370" y="45" width="300" height="170" fill="#312e81" stroke="#4f46e5" stroke-width="2" rx="8"/>
+  <text x="520" y="68" text-anchor="middle" fill="#c7d2fe" font-family="Arial" font-size="13" font-weight="bold">💬 Q&A Platform Effect</text>
+  <!-- Answer A -->
+  <rect x="390" y="80" width="260" height="28" fill="#065f46" stroke="#34d399" stroke-width="1.5" rx="4"/>
+  <text x="400" y="98" fill="#a7f3d0" font-family="Arial" font-size="10">▲ 200 Answer A (posted first, mediocre)</text>
+  <!-- Answer B -->
+  <rect x="390" y="115" width="260" height="28" fill="#7f1d1d" stroke="#f87171" stroke-width="1.5" rx="4"/>
+  <text x="400" y="133" fill="#fca5a5" font-family="Arial" font-size="10">▲ 5   Answer B (posted later, brilliant)</text>
+
+  <text x="520" y="163" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="10">First mover ≠ Best answer</text>
+  <text x="520" y="180" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="9">Early upvotes → top position → more visibility</text>
+  <text x="520" y="197" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="9">→ monopolizes all future engagement</text>
+
+  <!-- Feedback Loop -->
+  <rect x="100" y="240" width="500" height="140" fill="#312e81" stroke="#f97316" stroke-width="2" rx="10"/>
+  <text x="350" y="263" text-anchor="middle" fill="#fdba74" font-family="Arial" font-size="14" font-weight="bold">The Self-Reinforcing Feedback Loop</text>
+
+  <rect x="130" y="280" width="100" height="35" fill="#4f46e5" rx="5"/>
+  <text x="180" y="302" text-anchor="middle" fill="white" font-family="Arial" font-size="10">Early luck</text>
+  <text x="245" y="297" fill="#34d399" font-family="Arial" font-size="14">→</text>
+  <rect x="260" y="280" width="100" height="35" fill="#4f46e5" rx="5"/>
+  <text x="310" y="302" text-anchor="middle" fill="white" font-family="Arial" font-size="10">More visible</text>
+  <text x="375" y="297" fill="#34d399" font-family="Arial" font-size="14">→</text>
+  <rect x="390" y="280" width="100" height="35" fill="#4f46e5" rx="5"/>
+  <text x="440" y="302" text-anchor="middle" fill="white" font-family="Arial" font-size="10">More chosen</text>
+
+  <!-- Loop back -->
+  <path d="M 490,297 Q 520,297 520,340 Q 520,360 350,360 Q 140,360 140,340 Q 140,320 160,315" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  <polygon points="160,310 150,318 162,318" fill="#fbbf24"/>
+  <text x="350" y="375" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="11" font-weight="bold">Cycle repeats → Advantage becomes permanent</text>
+</svg>

@@ -214,14 +214,14 @@ That's it! Just add up all the hub scores of nodes pointing to you.
 
 ---
 
-**Question:** A research paper is cited by two other papers. Those papers have authority scores of **1.5** and **2.5**. What is this paper's hub-independent authority contribution before normalization?
+**Question:** A research paper is cited by two other papers. Those papers have hub scores of **1.5** and **2.5**. What is this paper's authority score before normalization?
 
 **Answer:**
 $$
 a(\text{paper}) = 1.5 + 2.5 = \mathbf{4.0}
 $$
 
-Wait — this question says "hub-independent authority contribution." This just means we're computing the raw authority score from cited-by relationships, before applying normalization. Still just: add the scores up.
+Once again, you just add up the hub scores of the papers pointing to it.
 
 ---
 
@@ -585,7 +585,7 @@ A firm ranked research papers by influence using citation graphs.
 |---|---|---|
 | What makes a paper an "authority"? | **Is cited by many influential papers** | Authority score = sum of hub scores of papers that cite you |
 | How can someone manipulate HITS scores? | **Creating hub papers that cite many works** AND **excessive self-citations** | HITS is localized — targeted citation spamming can shift hub/authority scores |
-| A paper is cited by papers with authority 1.5 and 2.5. Its authority contribution? | **4.0** | $1.5 + 2.5 = 4.0$ |
+| A paper is cited by papers with hub scores of 1.5 and 2.5. Its authority score? | **4.0** | $1.5 + 2.5 = 4.0$ |
 | Why is PageRank resistant to manipulation? | **Uses global normalization and damping** | Local cheating barely moves a global score that's spread across millions of nodes |
 | Which network properties help PageRank stability? | **High connectivity** AND **presence of hubs** | Connected networks propagate rank quickly; hubs act as fast-spreading relay stations |
 

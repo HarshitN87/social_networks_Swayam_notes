@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 350">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#818cf8"/>
+    </marker>
+  </defs>
+  <rect width="700" height="350" fill="#1e1b4b" rx="12"/>
+  <text x="350" y="28" text-anchor="middle" fill="#e0e7ff" font-family="Arial" font-size="16" font-weight="bold">SIR Model — State Transitions and Epidemic Lifecycle</text>
+
+  <!-- S State -->
+  <circle cx="130" cy="130" r="45" fill="#1d4ed8" stroke="#60a5fa" stroke-width="3"/>
+  <text x="130" y="125" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">S</text>
+  <text x="130" y="145" text-anchor="middle" fill="#bfdbfe" font-family="Arial" font-size="10">Susceptible</text>
+  <text x="130" y="195" text-anchor="middle" fill="#60a5fa" font-family="Arial" font-size="10">Healthy, can</text>
+  <text x="130" y="208" text-anchor="middle" fill="#60a5fa" font-family="Arial" font-size="10">be infected</text>
+
+  <!-- Arrow S → I -->
+  <line x1="178" y1="120" x2="275" y2="120" stroke="#f87171" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="228" y="112" text-anchor="middle" fill="#f87171" font-family="Arial" font-size="10" font-weight="bold">Infected!</text>
+  <text x="228" y="140" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="9">(prob p per edge)</text>
+
+  <!-- I State -->
+  <circle cx="340" cy="130" r="45" fill="#dc2626" stroke="#f87171" stroke-width="3"/>
+  <text x="340" y="125" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">I</text>
+  <text x="340" y="145" text-anchor="middle" fill="#fecaca" font-family="Arial" font-size="10">Infected</text>
+  <text x="340" y="195" text-anchor="middle" fill="#f87171" font-family="Arial" font-size="10">Contagious for</text>
+  <text x="340" y="208" text-anchor="middle" fill="#f87171" font-family="Arial" font-size="10">T_I time steps</text>
+
+  <!-- Arrow I → R -->
+  <line x1="388" y1="120" x2="485" y2="120" stroke="#fbbf24" stroke-width="3" marker-end="url(#arr)"/>
+  <text x="438" y="112" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="10" font-weight="bold">Recovers</text>
+  <text x="438" y="140" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="9">(after T_I steps)</text>
+
+  <!-- R State -->
+  <circle cx="550" cy="130" r="45" fill="#ca8a04" stroke="#fbbf24" stroke-width="3"/>
+  <text x="550" y="125" text-anchor="middle" fill="white" font-family="Arial" font-size="20" font-weight="bold">R</text>
+  <text x="550" y="145" text-anchor="middle" fill="#fef9c3" font-family="Arial" font-size="10">Recovered</text>
+  <text x="550" y="195" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="10">Permanently</text>
+  <text x="550" y="208" text-anchor="middle" fill="#fbbf24" font-family="Arial" font-size="10">immune (done!)</text>
+
+  <!-- ONE-WAY label -->
+  <rect x="180" y="65" width="350" height="22" fill="#1e1b4b" stroke="#f87171" stroke-width="1" rx="4"/>
+  <text x="355" y="81" text-anchor="middle" fill="#fca5a5" font-family="Arial" font-size="10" font-weight="bold">ONE-WAY progression: S → I → R (never goes back!)</text>
+
+  <!-- Key properties -->
+  <rect x="30" y="240" width="640" height="90" fill="#312e81" stroke="#4f46e5" stroke-width="1.5" rx="8"/>
+  <text x="350" y="263" text-anchor="middle" fill="#c7d2fe" font-family="Arial" font-size="12" font-weight="bold">Key Properties of SIR</text>
+  <text x="50" y="285" fill="#a5b4fc" font-family="Arial" font-size="11">• Permanent immunity after recovery → R is a "sink" state</text>
+  <text x="50" y="303" fill="#a5b4fc" font-family="Arial" font-size="11">• Simulation ends when infected count = 0 (all nodes are S or R)</text>
+  <text x="50" y="321" fill="#fbbf24" font-family="Arial" font-size="11" font-weight="bold">• Used for: Measles, Chickenpox, COVID (approx) — diseases with lasting immunity</text>
+</svg>
