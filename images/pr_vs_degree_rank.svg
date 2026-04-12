@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="380" viewBox="0 0 680 380" font-family="Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="680" height="380" fill="#f8fafc" rx="14" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="340" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">PageRank vs. In-Degree Rank — Why They Differ</text>
+  <text x="340" y="50" text-anchor="middle" font-size="11" fill="#64748b">Same in-degree can produce very different PageRank scores depending on WHO endorses you</text>
+
+  <!-- ── DIVIDER ── -->
+  <line x1="340" y1="62" x2="340" y2="355" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <!-- ══════ LEFT: In-Degree Ranking ══════ -->
+  <text x="170" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">In-Degree Rank</text>
+  <text x="170" y="94" text-anchor="middle" font-size="10" fill="#94a3b8">(counts raw inbound links)</text>
+
+  <!-- Bar chart rows: nodes A B C D E, ranked by in-degree -->
+  <!-- Assume in-degrees: C=4, A=3, D=3, B=2, E=1 -->
+  <!-- Let's say the nodes and their in-degrees -->
+
+  <!-- #1 C in-degree=4 -->
+  <rect x="30" y="108" width="200" height="34" rx="6" fill="#fb923c" stroke="#ea580c" stroke-width="1.5"/>
+  <text x="42" y="121" font-size="13" font-weight="bold" fill="white">#1  C</text>
+  <text x="42" y="136" font-size="11" fill="#fed7aa">in-degree = 4</text>
+  <text x="220" y="131" font-size="11" fill="#475569">████████</text>
+
+  <!-- #2 A in-degree=3 -->
+  <rect x="30" y="150" width="170" height="34" rx="6" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+  <text x="42" y="163" font-size="13" font-weight="bold" fill="white">#2  A</text>
+  <text x="42" y="178" font-size="11" fill="#fef3c7">in-degree = 3</text>
+
+  <!-- #2 D in-degree=3 -->
+  <rect x="30" y="192" width="170" height="34" rx="6" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+  <text x="42" y="205" font-size="13" font-weight="bold" fill="white">#2  D</text>
+  <text x="42" y="220" font-size="11" fill="#fef3c7">in-degree = 3</text>
+
+  <!-- #4 B in-degree=2 -->
+  <rect x="30" y="234" width="130" height="34" rx="6" fill="#34d399" stroke="#059669" stroke-width="1.5"/>
+  <text x="42" y="247" font-size="13" font-weight="bold" fill="white">#4  B</text>
+  <text x="42" y="261" font-size="11" fill="#d1fae5">in-degree = 2</text>
+
+  <!-- #5 E in-degree=1 -->
+  <rect x="30" y="276" width="90" height="34" rx="6" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <text x="42" y="289" font-size="13" font-weight="bold" fill="white">#5  E</text>
+  <text x="42" y="303" font-size="11" fill="#f1f5f9">in-degree = 1</text>
+
+  <!-- In-degree note -->
+  <rect x="24" y="322" width="302" height="28" rx="7" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/>
+  <text x="175" y="340" text-anchor="middle" font-size="11" fill="#9a3412">❌ C ranks #1 just because many pages link to it</text>
+
+  <!-- ══════ RIGHT: PageRank Ranking ══════ -->
+  <text x="510" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">PageRank Rank</text>
+  <text x="510" y="94" text-anchor="middle" font-size="10" fill="#94a3b8">(weights by importance of endorsers)</text>
+
+  <!-- PageRank bars — BUT IN A DIFFERENT ORDER: B now ranks #1! -->
+  <!-- B: Low in-degree but endorsed by mega-influencer → highest PR -->
+  <!-- #1 B PageRank=0.38 -->
+  <rect x="358" y="108" width="290" height="34" rx="6" fill="#dc2626" stroke="#991b1b" stroke-width="2"/>
+  <text x="370" y="121" font-size="13" font-weight="bold" fill="white">#1  B</text>
+  <text x="370" y="136" font-size="11" fill="#fee2e2">PR=0.38 · endorsed by A (top influencer)</text>
+
+  <!-- #2 A PR=0.25 -->
+  <rect x="358" y="150" width="230" height="34" rx="6" fill="#f97316" stroke="#c2410c" stroke-width="1.5"/>
+  <text x="370" y="163" font-size="13" font-weight="bold" fill="white">#2  A</text>
+  <text x="370" y="178" font-size="11" fill="#ffedd5">PR=0.25 · high-quality endorsers</text>
+
+  <!-- #3 D PR=0.18 -->
+  <rect x="358" y="192" width="180" height="34" rx="6" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+  <text x="370" y="205" font-size="13" font-weight="bold" fill="white">#3  D</text>
+  <text x="370" y="220" font-size="11" fill="#fef3c7">PR=0.18 · mixed endorsers</text>
+
+  <!-- #4 C PR=0.12 — was #1 in in-degree! -->
+  <rect x="358" y="234" width="130" height="34" rx="6" fill="#34d399" stroke="#059669" stroke-width="1.5"/>
+  <text x="370" y="247" font-size="13" font-weight="bold" fill="white">#4  C</text>
+  <text x="370" y="261" font-size="11" fill="#d1fae5">PR=0.12 · endorsed by low-PR nodes</text>
+
+  <!-- #5 E PR=0.07 -->
+  <rect x="358" y="276" width="90" height="34" rx="6" fill="#94a3b8" stroke="#64748b" stroke-width="1.5"/>
+  <text x="370" y="289" font-size="13" font-weight="bold" fill="white">#5  E</text>
+  <text x="370" y="303" font-size="11" fill="#f1f5f9">PR=0.07</text>
+
+  <!-- Key insight box -->
+  <rect x="352" y="322" width="316" height="28" rx="7" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5"/>
+  <text x="510" y="340" text-anchor="middle" font-size="11" fill="#14532d">✅ B jumps to #1 — 2 links from high-PR nodes beats 4 weak links</text>
+
+  <!-- Swap arrows pointing at C and B -->
+  <text x="340" y="130" text-anchor="middle" font-size="15" fill="#dc2626">⇄</text>
+  <text x="340" y="256" text-anchor="middle" font-size="15" fill="#dc2626">⇄</text>
+</svg>

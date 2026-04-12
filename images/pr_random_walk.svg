@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="400" viewBox="0 0 680 400" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+    <marker id="arr-walk" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7c3aed"/>
+    </marker>
+    <marker id="arr-teleport" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="680" height="400" fill="#f8fafc" rx="14" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="340" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">Random Walk — The Random Surfer Model</text>
+  <text x="340" y="50" text-anchor="middle" font-size="11" fill="#64748b">Follow link with prob d=0.85 · Teleport to random page with prob (1−d)=0.15</text>
+
+  <!-- ══ GRAPH EDGES (background links, thin grey) ══ -->
+  <!-- P1(120,180) P2(280,100) P3(460,100) P4(560,220) P5(420,310) P6(200,310) -->
+  <!-- structural edges (grey) -->
+  <line x1="148" y1="170" x2="260" y2="112" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="304" y1="112" x2="440" y2="112" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="480" y1="116" x2="548" y2="204" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="544" y1="240" x2="448" y2="300" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="396" y1="312" x2="228" y2="312" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="188" y1="298" x2="134" y2="202" stroke="#cbd5e1" stroke-width="1.5" marker-end="url(#arr)"/>
+  <!-- cross links -->
+  <line x1="280" y1="122" x2="200" y2="298" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <line x1="462" y1="122" x2="210" y2="300" stroke="#cbd5e1" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+  <!-- ══ WALK PATH (purple bold arrows showing the surfer's journey) ══ -->
+  <!-- Step 1: P1 → P2 (follow link) -->
+  <line x1="148" y1="173" x2="257" y2="113" stroke="#7c3aed" stroke-width="3" marker-end="url(#arr-walk)"/>
+  <!-- Step 2: P2 → P3 (follow link) -->
+  <line x1="304" y1="106" x2="437" y2="106" stroke="#7c3aed" stroke-width="3" marker-end="url(#arr-walk)"/>
+  <!-- Step 3: P3 → P4 (follow link) -->
+  <line x1="482" y1="119" x2="545" y2="205" stroke="#7c3aed" stroke-width="3" marker-end="url(#arr-walk)"/>
+  <!-- Step 4: TELEPORT P4 → P1 (dashed red curved arc) -->
+  <path d="M 548 226 C 560 320 80 340 126 196" stroke="#dc2626" stroke-width="2.5" fill="none" stroke-dasharray="8 5" marker-end="url(#arr-teleport)"/>
+
+  <!-- ══ NODES ══ -->
+  <!-- P1: start, visited twice (bigger) -->
+  <circle cx="120" cy="180" r="34" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2.5"/>
+  <text x="120" y="174" text-anchor="middle" font-size="13" font-weight="bold" fill="white">P1</text>
+  <text x="120" y="190" text-anchor="middle" font-size="10" fill="#dbeafe">visits: 2</text>
+
+  <!-- P2 -->
+  <circle cx="280" cy="107" r="28" fill="#7c3aed" stroke="#5b21b6" stroke-width="2"/>
+  <text x="280" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="white">P2</text>
+  <text x="280" y="117" text-anchor="middle" font-size="10" fill="#ede9fe">visits: 1</text>
+
+  <!-- P3 -->
+  <circle cx="460" cy="107" r="28" fill="#7c3aed" stroke="#5b21b6" stroke-width="2"/>
+  <text x="460" y="102" text-anchor="middle" font-size="13" font-weight="bold" fill="white">P3</text>
+  <text x="460" y="117" text-anchor="middle" font-size="10" fill="#ede9fe">visits: 1</text>
+
+  <!-- P4: visited, receives teleport start -->
+  <circle cx="560" cy="222" r="28" fill="#7c3aed" stroke="#5b21b6" stroke-width="2"/>
+  <text x="560" y="217" text-anchor="middle" font-size="13" font-weight="bold" fill="white">P4</text>
+  <text x="560" y="231" text-anchor="middle" font-size="10" fill="#ede9fe">visits: 1</text>
+
+  <!-- P5: unvisited so far (grey) -->
+  <circle cx="420" cy="312" r="28" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+  <text x="420" y="307" text-anchor="middle" font-size="13" font-weight="bold" fill="white">P5</text>
+  <text x="420" y="321" text-anchor="middle" font-size="10" fill="#f1f5f9">visits: 0</text>
+
+  <!-- P6: unvisited so far (grey) -->
+  <circle cx="210" cy="312" r="28" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+  <text x="210" y="307" text-anchor="middle" font-size="13" font-weight="bold" fill="white">P6</text>
+  <text x="210" y="321" text-anchor="middle" font-size="10" fill="#f1f5f9">visits: 0</text>
+
+  <!-- Step labels on walk path -->
+  <rect x="178" y="122" width="48" height="20" rx="5" fill="#7c3aed"/>
+  <text x="202" y="136" text-anchor="middle" font-size="11" fill="white">Step 1</text>
+
+  <rect x="352" y="76" width="48" height="20" rx="5" fill="#7c3aed"/>
+  <text x="376" y="90" text-anchor="middle" font-size="11" fill="white">Step 2</text>
+
+  <rect x="524" y="148" width="48" height="20" rx="5" fill="#7c3aed"/>
+  <text x="548" y="162" text-anchor="middle" font-size="11" fill="white">Step 3</text>
+
+  <!-- Teleport annotation -->
+  <rect x="220" y="350" width="240" height="38" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="340" y="366" text-anchor="middle" font-size="11" fill="#b91c1c">⚡ TELEPORT (prob 0.15): jump to</text>
+  <text x="340" y="382" text-anchor="middle" font-size="11" fill="#b91c1c">any random page — handles sink nodes!</text>
+
+  <!-- Legend -->
+  <rect x="14" y="354" width="198" height="38" rx="8" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <line x1="24" y1="369" x2="54" y2="369" stroke="#7c3aed" stroke-width="3"/>
+  <text x="62" y="373" font-size="11" fill="#5b21b6">Follow link (d = 0.85)</text>
+  <line x1="24" y1="386" x2="54" y2="386" stroke="#dc2626" stroke-width="2.5" stroke-dasharray="6 3"/>
+  <text x="62" y="390" font-size="11" fill="#991b1b">Teleport (1−d = 0.15)</text>
+
+  <!-- PageRank caption -->
+  <rect x="468" y="354" width="200" height="38" rx="8" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="568" y="368" text-anchor="middle" font-size="11" fill="#065f46">After millions of steps:</text>
+  <text x="568" y="384" text-anchor="middle" font-size="11" fill="#065f46">visit frequency ≈ PageRank</text>
+</svg>

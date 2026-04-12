@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="400" viewBox="0 0 640 400" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+    <marker id="arr-red" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#dc2626"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#00000022"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="640" height="400" fill="#f8fafc" rx="14" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="320" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">Web Graph — Directed Links &amp; PageRank</text>
+  <text x="320" y="50" text-anchor="middle" font-size="11" fill="#64748b">Node size ∝ PageRank score · Arrows show link direction</text>
+
+  <!-- ══════ EDGES ══════ -->
+  <!-- E → A  (horizontal) -->
+  <line x1="99" y1="200" x2="168" y2="200" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- A → B  (up-right) -->
+  <line x1="229" y1="181" x2="330" y2="114" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- A → C  (down-right) -->
+  <line x1="229" y1="219" x2="330" y2="286" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- B → D  (right and down) — highlighted red (high-value flow) -->
+  <line x1="371" y1="114" x2="458" y2="172" stroke="#dc2626" stroke-width="2.2" stroke-dasharray="none" marker-end="url(#arr-red)"/>
+
+  <!-- C → D  (right and up) — highlighted red -->
+  <line x1="371" y1="286" x2="458" y2="228" stroke="#dc2626" stroke-width="2.2" marker-end="url(#arr-red)"/>
+
+  <!-- D → A  (curved arc over the top) -->
+  <path d="M 475 154 C 430 48 260 48 238 167" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arr)"/>
+
+  <!-- ══════ NODES ══════ -->
+
+  <!-- E: very low PR  cx=80, cy=200, r=18 -->
+  <circle cx="80" cy="200" r="19" fill="#94a3b8" stroke="#64748b" stroke-width="2" filter="url(#shadow)"/>
+  <text x="80" y="196" text-anchor="middle" font-size="13" font-weight="bold" fill="white">E</text>
+  <text x="80" y="210" text-anchor="middle" font-size="9" fill="#f1f5f9">0.05</text>
+
+  <!-- A: medium PR  cx=200, cy=200, r=35 -->
+  <circle cx="200" cy="200" r="35" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2.5" filter="url(#shadow)"/>
+  <text x="200" y="196" text-anchor="middle" font-size="15" font-weight="bold" fill="white">A</text>
+  <text x="200" y="212" text-anchor="middle" font-size="10" fill="#dbeafe">PR 0.21</text>
+
+  <!-- B: low PR  cx=350, cy=100, r=25 -->
+  <circle cx="350" cy="100" r="26" fill="#22c55e" stroke="#15803d" stroke-width="2" filter="url(#shadow)"/>
+  <text x="350" y="96" text-anchor="middle" font-size="13" font-weight="bold" fill="white">B</text>
+  <text x="350" y="110" text-anchor="middle" font-size="9" fill="#dcfce7">0.12</text>
+
+  <!-- C: low PR  cx=350, cy=300, r=25 -->
+  <circle cx="350" cy="300" r="26" fill="#22c55e" stroke="#15803d" stroke-width="2" filter="url(#shadow)"/>
+  <text x="350" y="296" text-anchor="middle" font-size="13" font-weight="bold" fill="white">C</text>
+  <text x="350" y="310" text-anchor="middle" font-size="9" fill="#dcfce7">0.12</text>
+
+  <!-- D: HIGHEST PR  cx=510, cy=200, r=50 -->
+  <circle cx="510" cy="200" r="52" fill="#dc2626" stroke="#991b1b" stroke-width="3" filter="url(#shadow)"/>
+  <text x="510" y="194" text-anchor="middle" font-size="20" font-weight="bold" fill="white">D</text>
+  <text x="510" y="214" text-anchor="middle" font-size="12" fill="#fee2e2">PR 0.38</text>
+
+  <!-- ══════ ANNOTATIONS ══════ -->
+  <!-- D receives from B and C callout -->
+  <rect x="396" y="336" width="240" height="52" rx="8" fill="#fef2f2" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="406" y="355" font-size="11" fill="#b91c1c">D gets links from B AND C</text>
+  <text x="406" y="372" font-size="11" fill="#b91c1c">→ accumulates the most PageRank</text>
+  <line x1="510" y1="252" x2="510" y2="336" stroke="#fca5a5" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- In-degree label callout for A vs D -->
+  <rect x="10" y="336" width="210" height="52" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="20" y="355" font-size="11" fill="#1d4ed8">A and D both have</text>
+  <text x="20" y="372" font-size="11" fill="#1d4ed8">in-degree = 2, but D ranks higher!</text>
+</svg>

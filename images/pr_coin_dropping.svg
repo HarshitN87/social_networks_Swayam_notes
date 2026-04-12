@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="380" viewBox="0 0 680 380" font-family="Arial, sans-serif">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#475569"/>
+    </marker>
+    <marker id="arr-gold" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="680" height="380" fill="#f8fafc" rx="14" stroke="#e2e8f0" stroke-width="1.5"/>
+
+  <!-- Title -->
+  <text x="340" y="32" text-anchor="middle" font-size="15" font-weight="bold" fill="#1e293b">Coin / Points Distribution — Iterative PageRank</text>
+
+  <!-- ── DIVIDER ── -->
+  <line x1="340" y1="55" x2="340" y2="350" stroke="#e2e8f0" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- ── LEFT PANEL: Iteration 0 (Initial) ── -->
+  <text x="170" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">Iteration 0  (start)</text>
+
+  <!-- Nodes: Alice(130,155) Bob(60,260) Carol(200,260) Dave(130,340) -->
+  <!-- Alice → Bob edge -->
+  <line x1="115" y1="178" x2="78" y2="245" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- Alice → Carol edge -->
+  <line x1="145" y1="178" x2="188" y2="245" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- Bob → Dave edge -->
+  <line x1="75" y1="278" x2="115" y2="322" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Alice Node -->
+  <circle cx="130" cy="158" r="30" fill="#3b82f6" stroke="#1d4ed8" stroke-width="2"/>
+  <text x="130" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Alice</text>
+  <text x="130" y="168" text-anchor="middle" font-size="10" fill="#dbeafe">100 🪙</text>
+
+  <!-- Bob Node -->
+  <circle cx="65" cy="262" r="26" fill="#8b5cf6" stroke="#6d28d9" stroke-width="2"/>
+  <text x="65" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Bob</text>
+  <text x="65" y="271" text-anchor="middle" font-size="10" fill="#ede9fe">100 🪙</text>
+
+  <!-- Carol Node -->
+  <circle cx="200" cy="262" r="26" fill="#ec4899" stroke="#be185d" stroke-width="2"/>
+  <text x="200" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Carol</text>
+  <text x="200" y="271" text-anchor="middle" font-size="10" fill="#fce7f3">100 🪙</text>
+
+  <!-- Dave Node -->
+  <circle cx="130" cy="335" r="26" fill="#f59e0b" stroke="#b45309" stroke-width="2"/>
+  <text x="130" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Dave</text>
+  <text x="130" y="344" text-anchor="middle" font-size="10" fill="#fef3c7">100 🪙</text>
+
+  <!-- ── ARROW between panels ── -->
+  <text x="340" y="210" text-anchor="middle" font-size="22" fill="#d97706">→</text>
+  <text x="340" y="230" text-anchor="middle" font-size="10" fill="#92400e">iterate</text>
+
+  <!-- ── RIGHT PANEL: After Iteration 1 ── -->
+  <text x="510" y="72" text-anchor="middle" font-size="13" font-weight="bold" fill="#475569">After Iteration 1</text>
+
+  <!-- Alice distributes 100 equally to Bob and Carol: 50 each -->
+  <!-- Bob distributes 100 to Dave: 100 to Dave -->
+  <!-- After iter 1: Alice gets 0 (no inlinks), Bob gets 50, Carol gets 50, Dave gets 100 (from Bob) + 0 -->
+  <!-- But then another round: Alice=0, Bob=50(from A), Carol=50(from A), Dave=150(from Bob 50+old 100?) -->
+  <!-- Actually let me show a simplified view of iteration 1 redistribution flow -->
+
+  <!-- Coin flow labels on edges (left side) -->
+  <text x="88" y="214" font-size="10" fill="#d97706" font-weight="bold">+50🪙</text>
+  <text x="164" y="214" font-size="10" fill="#d97706" font-weight="bold">+50🪙</text>
+  <text x="78" y="307" font-size="10" fill="#d97706" font-weight="bold">+100🪙</text>
+
+  <!-- Right panel nodes -->
+  <!-- Same graph structure -->
+  <!-- Alice → Bob -->
+  <line x1="495" y1="178" x2="458" y2="245" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- Alice → Carol -->
+  <line x1="525" y1="178" x2="568" y2="245" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+  <!-- Bob → Dave -->
+  <line x1="455" y1="278" x2="495" y2="322" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/>
+
+  <!-- Alice: gave away all 100, receives nothing → 0 coins -->
+  <circle cx="510" cy="158" r="30" fill="#94a3b8" stroke="#64748b" stroke-width="2"/>
+  <text x="510" y="153" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Alice</text>
+  <text x="510" y="168" text-anchor="middle" font-size="10" fill="#f1f5f9">0 🪙</text>
+
+  <!-- Bob: received 50 from Alice (distributes 100 to Dave), now has 50 -->
+  <circle cx="445" cy="262" r="26" fill="#8b5cf6" stroke="#6d28d9" stroke-width="2"/>
+  <text x="445" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Bob</text>
+  <text x="445" y="271" text-anchor="middle" font-size="10" fill="#ede9fe">50 🪙</text>
+
+  <!-- Carol: received 50 from Alice, no outlinks keeps it -->
+  <circle cx="580" cy="262" r="26" fill="#ec4899" stroke="#be185d" stroke-width="2"/>
+  <text x="580" y="257" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Carol</text>
+  <text x="580" y="271" text-anchor="middle" font-size="10" fill="#fce7f3">50 🪙</text>
+
+  <!-- Dave: received 100 from Bob, grows larger -->
+  <circle cx="510" cy="335" r="36" fill="#f59e0b" stroke="#b45309" stroke-width="2.5"/>
+  <text x="510" y="330" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Dave</text>
+  <text x="510" y="346" text-anchor="middle" font-size="10" fill="#fef3c7">200 🪙</text>
+
+  <!-- Rule box at bottom -->
+  <rect x="20" y="355" width="640" height="22" rx="6" fill="#fefce8" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="340" y="370" text-anchor="middle" font-size="11" fill="#713f12">Rule: each node distributes ALL its coins equally among its out-neighbours · Repeat until no change (convergence)</text>
+</svg>
