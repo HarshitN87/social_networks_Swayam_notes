@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520">
+  <defs>
+    <linearGradient id="bgC" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+    <filter id="glowC">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="850" height="520" fill="url(#bgC)" rx="12"/>
+  <text x="425" y="32" text-anchor="middle" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="17" font-weight="bold">Three Centrality Measures — Choosing the Right Seed Node</text>
+
+  <!-- Column 1: Degree Centrality -->
+  <rect x="20" y="50" width="260" height="320" rx="10" fill="#6366f1" opacity="0.10" stroke="#6366f1" stroke-width="1"/>
+  <text x="150" y="75" text-anchor="middle" fill="#a5b4fc" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Degree Centrality</text>
+  <text x="150" y="92" text-anchor="middle" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">"Who has the most friends?"</text>
+  <!-- Hub node -->
+  <circle cx="150" cy="180" r="20" fill="#6366f1" filter="url(#glowC)"/>
+  <text x="150" y="184" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="10" font-weight="bold">HUB</text>
+  <!-- Spokes -->
+  <circle cx="90" cy="130" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="90" y2="130" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="210" cy="130" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="210" y2="130" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="80" cy="190" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="80" y2="190" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="220" cy="190" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="220" y2="190" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="100" cy="240" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="100" y2="240" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="200" cy="240" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="200" y2="240" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="150" cy="250" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="150" y2="250" stroke="#818cf8" stroke-width="1.5"/>
+  <circle cx="120" cy="140" r="7" fill="#818cf8"/><line x1="150" y1="180" x2="120" y2="140" stroke="#818cf8" stroke-width="1.5"/>
+  <!-- Labels -->
+  <text x="150" y="285" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="10">✓ Largest immediate audience</text>
+  <text x="150" y="302" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="10">✓ Maximum initial exposure</text>
+  <text x="150" y="325" text-anchor="middle" fill="#ef4444" font-family="Arial,sans-serif" font-size="10">✗ May be in a local cluster</text>
+  <text x="150" y="342" text-anchor="middle" fill="#ef4444" font-family="Arial,sans-serif" font-size="10">✗ Connections may overlap</text>
+  <text x="150" y="362" text-anchor="middle" fill="#818cf8" font-family="Arial,sans-serif" font-size="9">Goal: Wide initial exposure</text>
+
+  <!-- Column 2: Closeness Centrality -->
+  <rect x="295" y="50" width="260" height="320" rx="10" fill="#22c55e" opacity="0.10" stroke="#22c55e" stroke-width="1"/>
+  <text x="425" y="75" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Closeness Centrality</text>
+  <text x="425" y="92" text-anchor="middle" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">"Who can reach everyone fastest?"</text>
+  <!-- Central node -->
+  <circle cx="425" cy="180" r="16" fill="#22c55e" filter="url(#glowC)"/>
+  <text x="425" y="184" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="8" font-weight="bold">CLOSE</text>
+  <!-- Network around it showing short paths -->
+  <circle cx="375" cy="140" r="6" fill="#86efac"/><line x1="425" y1="180" x2="375" y2="140" stroke="#86efac" stroke-width="1.5"/>
+  <circle cx="475" cy="140" r="6" fill="#86efac"/><line x1="425" y1="180" x2="475" y2="140" stroke="#86efac" stroke-width="1.5"/>
+  <circle cx="370" cy="210" r="6" fill="#86efac"/><line x1="425" y1="180" x2="370" y2="210" stroke="#86efac" stroke-width="1.5"/>
+  <circle cx="480" cy="210" r="6" fill="#86efac"/><line x1="425" y1="180" x2="480" y2="210" stroke="#86efac" stroke-width="1.5"/>
+  <!-- Second ring showing reachability -->
+  <circle cx="340" cy="120" r="5" fill="#4ade80" opacity="0.5"/><line x1="375" y1="140" x2="340" y2="120" stroke="#4ade80" stroke-width="1" opacity="0.5"/>
+  <circle cx="510" cy="120" r="5" fill="#4ade80" opacity="0.5"/><line x1="475" y1="140" x2="510" y2="120" stroke="#4ade80" stroke-width="1" opacity="0.5"/>
+  <circle cx="340" cy="240" r="5" fill="#4ade80" opacity="0.5"/><line x1="370" y1="210" x2="340" y2="240" stroke="#4ade80" stroke-width="1" opacity="0.5"/>
+  <circle cx="510" cy="240" r="5" fill="#4ade80" opacity="0.5"/><line x1="480" y1="210" x2="510" y2="240" stroke="#4ade80" stroke-width="1" opacity="0.5"/>
+  <!-- Dashed lines showing short avg distance -->
+  <line x1="425" y1="165" x2="340" y2="120" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+  <line x1="425" y1="195" x2="510" y2="240" stroke="#fbbf24" stroke-width="1" stroke-dasharray="3,2" opacity="0.6"/>
+  <text x="425" y="265" text-anchor="middle" fill="#fbbf24" font-family="Arial,sans-serif" font-size="9">avg distance to all = minimal</text>
+  <text x="425" y="285" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="10">✓ Fastest diffusion speed</text>
+  <text x="425" y="302" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="10">✓ Minimal hops to anyone</text>
+  <text x="425" y="325" text-anchor="middle" fill="#ef4444" font-family="Arial,sans-serif" font-size="10">✗ May not bridge communities</text>
+  <text x="425" y="362" text-anchor="middle" fill="#86efac" font-family="Arial,sans-serif" font-size="9">Goal: Rapid saturation</text>
+
+  <!-- Column 3: Betweenness Centrality -->
+  <rect x="570" y="50" width="260" height="320" rx="10" fill="#f59e0b" opacity="0.10" stroke="#f59e0b" stroke-width="1"/>
+  <text x="700" y="75" text-anchor="middle" fill="#fbbf24" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Betweenness Centrality</text>
+  <text x="700" y="92" text-anchor="middle" fill="#94a3b8" font-family="Arial,sans-serif" font-size="10">"Who is the bridge / gatekeeper?"</text>
+  <!-- Two clusters bridged -->
+  <!-- Cluster L -->
+  <circle cx="630" cy="150" r="6" fill="#818cf8"/>
+  <circle cx="620" cy="180" r="6" fill="#818cf8"/>
+  <circle cx="640" cy="200" r="6" fill="#818cf8"/>
+  <circle cx="610" cy="160" r="6" fill="#818cf8"/>
+  <line x1="630" y1="150" x2="620" y2="180" stroke="#818cf8" stroke-width="1"/>
+  <line x1="620" y1="180" x2="640" y2="200" stroke="#818cf8" stroke-width="1"/>
+  <line x1="610" y1="160" x2="630" y2="150" stroke="#818cf8" stroke-width="1"/>
+  <line x1="610" y1="160" x2="620" y2="180" stroke="#818cf8" stroke-width="1"/>
+  <!-- Bridge node -->
+  <circle cx="700" cy="180" r="14" fill="#f59e0b" filter="url(#glowC)"/>
+  <text x="700" y="183" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="7" font-weight="bold">BRIDGE</text>
+  <line x1="640" y1="200" x2="686" y2="180" stroke="#fbbf24" stroke-width="2.5"/>
+  <line x1="630" y1="150" x2="688" y2="174" stroke="#fbbf24" stroke-width="2.5"/>
+  <!-- Cluster R -->
+  <circle cx="770" cy="150" r="6" fill="#f87171"/>
+  <circle cx="780" cy="180" r="6" fill="#f87171"/>
+  <circle cx="760" cy="200" r="6" fill="#f87171"/>
+  <circle cx="790" cy="160" r="6" fill="#f87171"/>
+  <line x1="770" y1="150" x2="780" y2="180" stroke="#f87171" stroke-width="1"/>
+  <line x1="780" y1="180" x2="760" y2="200" stroke="#f87171" stroke-width="1"/>
+  <line x1="790" y1="160" x2="770" y2="150" stroke="#f87171" stroke-width="1"/>
+  <line x1="790" y1="160" x2="780" y2="180" stroke="#f87171" stroke-width="1"/>
+  <line x1="714" y1="180" x2="760" y2="200" stroke="#fbbf24" stroke-width="2.5"/>
+  <line x1="712" y1="174" x2="770" y2="150" stroke="#fbbf24" stroke-width="2.5"/>
+  <!-- Labels -->
+  <text x="700" y="235" text-anchor="middle" fill="#fbbf24" font-family="Arial,sans-serif" font-size="9">lies on shortest paths between clusters</text>
+  <text x="700" y="285" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="10">✓ Cross-community transmission</text>
+  <text x="700" y="302" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="10">✓ Prevents stagnation</text>
+  <text x="700" y="325" text-anchor="middle" fill="#ef4444" font-family="Arial,sans-serif" font-size="10">✗ May not have many friends</text>
+  <text x="700" y="362" text-anchor="middle" fill="#fbbf24" font-family="Arial,sans-serif" font-size="9">Goal: Cross-community reach</text>
+
+  <!-- Bottom summary -->
+  <rect x="50" y="390" width="750" height="110" rx="8" fill="#1e1b4b" opacity="0.65" stroke="#6366f1" stroke-width="1"/>
+  <text x="425" y="415" text-anchor="middle" fill="#e2e8f0" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Which Seed Node to Choose?</text>
+  <text x="425" y="438" text-anchor="middle" fill="#a5b4fc" font-family="Arial,sans-serif" font-size="11">Degree → max immediate audience | Closeness → fastest spread | Betweenness → cross-cluster jumps</text>
+  <text x="425" y="460" text-anchor="middle" fill="#fbbf24" font-family="Arial,sans-serif" font-size="11" font-weight="bold">⚠ Degree alone can fail! A hub trapped in a local cluster doesn't spread globally.</text>
+  <text x="425" y="482" text-anchor="middle" fill="#4ade80" font-family="Arial,sans-serif" font-size="11">K-core decomposition captures structural position better than any single centrality measure.</text>
+</svg>
