@@ -206,9 +206,7 @@ Here's the full algorithm in simple steps:
 **Question:** A user on a social platform is followed by two hubs. Those hubs have hub scores of **3** and **5**. What is the user's authority score before normalization?
 
 **Answer:**
-$$
-a(\text{user}) = 3 + 5 = \mathbf{8}
-$$
+$$a(\text{user}) = 3 + 5 = \mathbf{8}$$
 
 That's it! Just add up all the hub scores of nodes pointing to you.
 
@@ -217,9 +215,9 @@ That's it! Just add up all the hub scores of nodes pointing to you.
 **Question:** A research paper is cited by two other papers. Those papers have hub scores of **1.5** and **2.5**. What is this paper's authority score before normalization?
 
 **Answer:**
-$$
+
+```math
 a(\text{paper}) = 1.5 + 2.5 = \mathbf{4.0}
-$$
 
 Once again, you just add up the hub scores of the papers pointing to it.
 
