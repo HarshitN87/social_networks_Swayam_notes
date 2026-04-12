@@ -277,13 +277,22 @@ A = 1/3    B = 1/3    C = 1/3
 #### Iteration 1: What happens?
 
 **Node A** only receives from B (which gives 50% of its coins to A):
-$$A_{new} = \frac{1}{2} \times B_{old} = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6} \approx 0.167$$
+
+$$
+A_{new} = \frac{1}{2} \times B_{old} = \frac{1}{2} \times \frac{1}{3} = \frac{1}{6} \approx 0.167
+$$
 
 **Node B** only receives from C (which gives all of its coins to B):
-$$B_{new} = C_{old} = \frac{1}{3} \approx 0.333$$
+
+$$
+B_{new} = C_{old} = \frac{1}{3} \approx 0.333
+$$
 
 **Node C** receives from both A (all of A's coins) and B (50% of B's coins):
-$$C_{new} = A_{old} + \frac{1}{2} \times B_{old} = \frac{1}{3} + \frac{1}{6} = \frac{2}{6} + \frac{1}{6} = \frac{3}{6} = \frac{1}{2} = 0.500$$
+
+$$
+C_{new} = A_{old} + \frac{1}{2} \times B_{old} = \frac{1}{3} + \frac{1}{6} = \frac{2}{6} + \frac{1}{6} = \frac{3}{6} = \frac{1}{2} = 0.500
+$$
 
 After Iteration 1: **A = 0.167, B = 0.333, C = 0.500** ✅ (total = 1.0, conserved)
 
@@ -417,7 +426,10 @@ Check our matrix M:
 It's the mathematical way of saying: **every coin that leaves a node must land somewhere**. If you have 0.4 units at node B, and B links to A and C equally, then 0.2 goes to A and 0.2 goes to C. The total stays 0.4. Nothing is created. Nothing disappears.
 
 Because of this property, the total across all nodes stays constant through every multiplication:
-$$\text{(total before)} = \text{(total after)} \quad \text{always}$$
+
+$$
+\text{(total before)} = \text{(total after)} \quad \text{always}
+$$
 
 This guarantees that the system won't explode to infinity or collapse to zero. **A stable equilibrium must always exist.**
 
@@ -428,7 +440,10 @@ This guarantees that the system won't explode to infinity or collapse to zero. *
 This is the deep mathematics behind why repeated multiplication always settles down.
 
 **What's an eigenvalue?** When you multiply a matrix M by a special vector $\mathbf{v}$, the result might be the same vector, just scaled:
-$$M \mathbf{v} = \lambda \mathbf{v}$$
+
+$$
+M \mathbf{v} = \lambda \mathbf{v}
+$$
 Here, $\lambda$ is the **eigenvalue** and $\mathbf{v}$ is the **eigenvector**. Think of it as: the matrix stretches this vector by a factor of $\lambda$ but doesn't rotate it.
 
 **Key fact about Markov matrices:** Every Markov matrix has a **largest eigenvalue of exactly 1**. All other eigenvalues have absolute value **less than 1** (i.e., $|\lambda| < 1$).
@@ -436,10 +451,16 @@ Here, $\lambda$ is the **eigenvalue** and $\mathbf{v}$ is the **eigenvector**. T
 **Now here's the key insight:**
 
 Any starting vector $\mathbf{r}^{(0)}$ can be split into a combination of eigenvectors:
-$$\mathbf{r}^{(0)} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_n \mathbf{v}_n$$
+
+$$
+\mathbf{r}^{(0)} = c_1 \mathbf{v}_1 + c_2 \mathbf{v}_2 + \cdots + c_n \mathbf{v}_n
+$$
 
 After applying M repeatedly ($k$ times):
-$$\mathbf{r}^{(k)} = c_1 \lambda_1^k \mathbf{v}_1 + c_2 \lambda_2^k \mathbf{v}_2 + \cdots + c_n \lambda_n^k \mathbf{v}_n$$
+
+$$
+\mathbf{r}^{(k)} = c_1 \lambda_1^k \mathbf{v}_1 + c_2 \lambda_2^k \mathbf{v}_2 + \cdots + c_n \lambda_n^k \mathbf{v}_n
+$$
 
 Now think about what happens as $k$ gets very large:
 - $\lambda_1 = 1$ → $1^k = 1$ → the first term **stays constant forever**
@@ -449,7 +470,9 @@ Now think about what happens as $k$ gets very large:
 
 **What's left?** Only the first term: $c_1 \mathbf{v}_1$. Everything else vanished.
 
-$$\mathbf{r}^{(k)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1$$
+$$
+\mathbf{r}^{(k)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1
+$$
 
 The final stable PageRank vector is just the **dominant eigenvector** of M (the one associated with $\lambda = 1$).
 
@@ -470,7 +493,9 @@ The final stable PageRank vector is just the **dominant eigenvector** of M (the 
 
 When PageRank has converged, multiplying by M doesn't change anything:
 
-$$M \mathbf{r}^* = \mathbf{r}^*$$
+$$
+M \mathbf{r}^* = \mathbf{r}^*
+$$
 
 This literally says: "The score distribution after one round is identical to the score distribution before." The system is at rest. The PageRank vector $\mathbf{r}^*$ is the eigenvector of M with eigenvalue 1.
 
@@ -573,36 +598,56 @@ A firm ranked research papers by influence using citation graphs.
 ### HITS Formulas
 
 **Hub update** (for every node v):
-$$h(v) \leftarrow \sum_{\text{nodes } u \text{ that } v \text{ links to}} a(u)$$
+
+$$
+h(v) \leftarrow \sum_{\text{nodes } u \text{ that } v \text{ links to}} a(u)
+$$
 
 **Authority update** (for every node v):
-$$a(v) \leftarrow \sum_{\text{nodes } u \text{ that link to } v} h(u)$$
+
+$$
+a(v) \leftarrow \sum_{\text{nodes } u \text{ that link to } v} h(u)
+$$
 
 Memory trick: **Hub looks OUT** (sum of authorities it points to). **Authority looks IN** (sum of hubs pointing at it).
 
 ### PageRank Formulas
 
 **Basic (no damping):**
-$$PR(v) = \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}$$
+
+$$
+PR(v) = \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}
+$$
 
 **With damping (the real version):**
-$$PR(v) = \frac{1-d}{n} + d \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}$$
+
+$$
+PR(v) = \frac{1-d}{n} + d \sum_{u \to v} \frac{PR(u)}{|N^+(u)|}
+$$
 
 ### Normalization (Bipartite System)
 
-$$\text{Normalized}(x) = \frac{\text{Score}(x)}{\text{Sum of all scores in same group}}$$
+$$
+\text{Normalized}(x) = \frac{\text{Score}(x)}{\text{Sum of all scores in same group}}
+$$
 
 ### Markov Matrix Rule
 
-$$\text{Every column of M sums to } 1 \quad \Leftrightarrow \quad \text{Total rank is conserved every round}$$
+$$
+\text{Every column of M sums to } 1 \quad \Leftrightarrow \quad \text{Total rank is conserved every round}
+$$
 
 ### Convergence Formula
 
-$$\mathbf{r}^{(k)} = M^k \mathbf{r}^{(0)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1 \quad \text{(the dominant eigenvector)}$$
+$$
+\mathbf{r}^{(k)} = M^k \mathbf{r}^{(0)} \xrightarrow{k \to \infty} c_1 \mathbf{v}_1 \quad \text{(the dominant eigenvector)}
+$$
 
 ### Steady State (Convergence Condition)
 
-$$M \mathbf{r}^* = \mathbf{r}^* \quad \longleftrightarrow \quad \text{"Applying M one more time changes nothing"}$$
+$$
+M \mathbf{r}^* = \mathbf{r}^* \quad \longleftrightarrow \quad \text{"Applying M one more time changes nothing"}
+$$
 
 ---
 
