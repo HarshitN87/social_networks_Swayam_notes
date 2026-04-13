@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 360">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="360" fill="url(#bg2)" rx="12"/>
+  <text x="350" y="28" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="17" font-weight="bold">Points Distribution — Complete Iteration Trace</text>
+
+  <!-- Network diagram -->
+  <circle cx="130" cy="120" r="22" fill="#53d8fb" opacity="0.85"/><text x="130" y="125" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">A</text>
+  <circle cx="270" cy="80" r="22" fill="#e94560" opacity="0.85"/><text x="270" y="85" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">B</text>
+  <circle cx="270" cy="170" r="22" fill="#2ecc71" opacity="0.85"/><text x="270" y="175" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">C</text>
+  <circle cx="390" cy="120" r="22" fill="#ffcc00" opacity="0.85"/><text x="390" y="125" text-anchor="middle" fill="#1a1a2e" font-family="Arial,sans-serif" font-size="14" font-weight="bold">D</text>
+
+  <!-- A → B, A → C -->
+  <line x1="150" y1="108" x2="248" y2="88" stroke="#53d8fb" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="248,84 256,86 248,92" fill="#53d8fb" opacity="0.6"/>
+  <line x1="150" y1="132" x2="248" y2="162" stroke="#53d8fb" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="248,158 256,164 248,168" fill="#53d8fb" opacity="0.6"/>
+  <text x="175" y="100" fill="#53d8fb" font-family="Arial,sans-serif" font-size="9">50%</text>
+  <text x="175" y="155" fill="#53d8fb" font-family="Arial,sans-serif" font-size="9">50%</text>
+
+  <!-- B → D -->
+  <line x1="292" y1="85" x2="368" y2="115" stroke="#e94560" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="368,111 376,117 368,121" fill="#e94560" opacity="0.6"/>
+  <text x="330" y="92" fill="#e94560" font-family="Arial,sans-serif" font-size="9">100%</text>
+
+  <!-- C → D -->
+  <line x1="292" y1="165" x2="368" y2="130" stroke="#2ecc71" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="368,126 376,128 368,134" fill="#2ecc71" opacity="0.6"/>
+  <text x="330" y="160" fill="#2ecc71" font-family="Arial,sans-serif" font-size="9">100%</text>
+
+  <!-- D → A -->
+  <path d="M 390,98 C 390,40 130,40 130,98" fill="none" stroke="#ffcc00" stroke-width="1.5" opacity="0.6"/>
+  <polygon points="128,96 130,86 134,96" fill="#ffcc00" opacity="0.6"/>
+  <text x="260" y="48" fill="#ffcc00" font-family="Arial,sans-serif" font-size="9">100%</text>
+
+  <!-- Iteration table -->
+  <rect x="430" y="55" width="250" height="170" fill="rgba(255,255,255,0.04)" rx="8"/>
+  <text x="555" y="78" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Iteration Trace</text>
+  <text x="460" y="98" fill="#888" font-family="monospace" font-size="11">Round</text>
+  <text x="510" y="98" fill="#53d8fb" font-family="monospace" font-size="11">A</text>
+  <text x="555" y="98" fill="#e94560" font-family="monospace" font-size="11">B</text>
+  <text x="600" y="98" fill="#2ecc71" font-family="monospace" font-size="11">C</text>
+  <text x="645" y="98" fill="#ffcc00" font-family="monospace" font-size="11">D</text>
+  <line x1="440" y1="104" x2="670" y2="104" stroke="#555" stroke-width="0.5"/>
+
+  <text x="460" y="118" fill="#888" font-family="monospace" font-size="10">t=0</text>
+  <text x="510" y="118" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="555" y="118" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="600" y="118" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="645" y="118" fill="white" font-family="monospace" font-size="10">100</text>
+
+  <text x="460" y="138" fill="#888" font-family="monospace" font-size="10">t=1</text>
+  <text x="510" y="138" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="555" y="138" fill="white" font-family="monospace" font-size="10"> 50</text>
+  <text x="600" y="138" fill="white" font-family="monospace" font-size="10"> 50</text>
+  <text x="645" y="138" fill="#ffcc00" font-family="monospace" font-size="10" font-weight="bold">200</text>
+
+  <text x="460" y="158" fill="#888" font-family="monospace" font-size="10">t=2</text>
+  <text x="510" y="158" fill="#ffcc00" font-family="monospace" font-size="10" font-weight="bold">200</text>
+  <text x="555" y="158" fill="white" font-family="monospace" font-size="10"> 50</text>
+  <text x="600" y="158" fill="white" font-family="monospace" font-size="10"> 50</text>
+  <text x="645" y="158" fill="white" font-family="monospace" font-size="10">100</text>
+
+  <text x="460" y="178" fill="#888" font-family="monospace" font-size="10">t=3</text>
+  <text x="510" y="178" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="555" y="178" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="600" y="178" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="645" y="178" fill="white" font-family="monospace" font-size="10">100</text>
+
+  <text x="460" y="198" fill="#888" font-family="monospace" font-size="10">∞</text>
+  <text x="510" y="198" fill="white" font-family="monospace" font-size="10">100</text>
+  <text x="555" y="198" fill="white" font-family="monospace" font-size="10"> 50</text>
+  <text x="600" y="198" fill="white" font-family="monospace" font-size="10"> 50</text>
+  <text x="645" y="198" fill="#ffcc00" font-family="monospace" font-size="10" font-weight="bold">200</text>
+
+  <!-- Summary -->
+  <rect x="40" y="270" width="620" height="75" fill="rgba(255,255,255,0.04)" rx="8"/>
+  <text x="350" y="294" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Key Insight</text>
+  <text x="350" y="316" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="12">D ranks highest because it receives from BOTH B and C (which receive from A)</text>
+  <text x="350" y="336" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="11">Total points conserved every round: 100+50+50+200 = 400 ✓ | Ranking: D > A > B = C</text>
+</svg>

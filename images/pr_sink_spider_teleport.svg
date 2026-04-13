@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380">
+  <defs>
+    <linearGradient id="bg3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#161b22;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="380" fill="url(#bg3)" rx="12"/>
+  <text x="350" y="28" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="17" font-weight="bold">Sink Nodes, Spider Traps & The Teleportation Fix</text>
+
+  <!-- Sink Node -->
+  <rect x="25" y="50" width="200" height="210" fill="rgba(233,69,96,0.06)" rx="10"/>
+  <text x="125" y="75" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Sink Node</text>
+  <text x="125" y="93" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="10">No outgoing links</text>
+  <circle cx="85" cy="140" r="14" fill="#53d8fb" opacity="0.7"/><text x="85" y="144" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10">A</text>
+  <circle cx="165" cy="140" r="14" fill="#53d8fb" opacity="0.7"/><text x="165" y="144" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10">B</text>
+  <circle cx="125" cy="195" r="18" fill="#e94560" opacity="0.9"/><text x="125" y="199" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10" font-weight="bold">SINK</text>
+  <line x1="85" y1="154" x2="115" y2="180" stroke="#e94560" stroke-width="2" opacity="0.6"/>
+  <polygon points="113,176 118,184 109,182" fill="#e94560" opacity="0.6"/>
+  <line x1="165" y1="154" x2="135" y2="180" stroke="#e94560" stroke-width="2" opacity="0.6"/>
+  <polygon points="137,176 132,184 141,182" fill="#e94560" opacity="0.6"/>
+  <text x="125" y="240" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="10">Points flow IN but</text>
+  <text x="125" y="254" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="10" font-weight="bold">never flow OUT ✗</text>
+
+  <!-- Spider Trap -->
+  <rect x="250" y="50" width="200" height="210" fill="rgba(255,204,0,0.06)" rx="10"/>
+  <text x="350" y="75" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Spider Trap</text>
+  <text x="350" y="93" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="10">Self-loop or closed cycle</text>
+  <circle cx="310" cy="140" r="14" fill="#53d8fb" opacity="0.7"/><text x="310" y="144" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10">A</text>
+  <circle cx="390" cy="140" r="14" fill="#53d8fb" opacity="0.7"/><text x="390" y="144" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10">B</text>
+  <circle cx="350" cy="195" r="18" fill="#ffcc00" opacity="0.9"/><text x="350" y="199" text-anchor="middle" fill="#1a1a2e" font-family="Arial,sans-serif" font-size="10" font-weight="bold">TRAP</text>
+  <line x1="310" y1="154" x2="340" y2="180" stroke="#ffcc00" stroke-width="2" opacity="0.6"/>
+  <polygon points="338,176 343,184 334,182" fill="#ffcc00" opacity="0.6"/>
+  <!-- Self-loop -->
+  <path d="M 365,185 C 400,170 400,220 365,205" fill="none" stroke="#ffcc00" stroke-width="2" opacity="0.6"/>
+  <polygon points="365,200 362,210 368,207" fill="#ffcc00" opacity="0.6"/>
+  <text x="350" y="240" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="10">Points enter and</text>
+  <text x="350" y="254" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="10" font-weight="bold">cycle forever ∞</text>
+
+  <!-- Teleportation fix -->
+  <rect x="475" y="50" width="200" height="210" fill="rgba(46,204,113,0.06)" rx="10"/>
+  <text x="575" y="75" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="13" font-weight="bold">Teleportation Fix</text>
+  <text x="575" y="93" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="10">Random jump (1−d)</text>
+  <circle cx="535" cy="140" r="14" fill="#53d8fb" opacity="0.7"/><text x="535" y="144" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10">A</text>
+  <circle cx="615" cy="140" r="14" fill="#53d8fb" opacity="0.7"/><text x="615" y="144" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10">B</text>
+  <circle cx="575" cy="195" r="18" fill="#2ecc71" opacity="0.9"/><text x="575" y="199" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="10" font-weight="bold">C</text>
+  <line x1="535" y1="154" x2="565" y2="180" stroke="#2ecc71" stroke-width="2" opacity="0.6"/>
+  <line x1="615" y1="154" x2="585" y2="180" stroke="#2ecc71" stroke-width="2" opacity="0.6"/>
+  <!-- Teleport dashed lines -->
+  <line x1="575" y1="213" x2="535" y2="152" stroke="#2ecc71" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <line x1="575" y1="213" x2="615" y2="152" stroke="#2ecc71" stroke-width="1" stroke-dasharray="4,3" opacity="0.5"/>
+  <text x="575" y="240" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="10">15% chance: jump</text>
+  <text x="575" y="254" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="10" font-weight="bold">to ANY random node ✓</text>
+
+  <!-- Bottom formula -->
+  <rect x="40" y="280" width="620" height="85" fill="rgba(255,255,255,0.04)" rx="8"/>
+  <text x="350" y="305" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="13" font-weight="bold">The Damped PageRank Formula</text>
+  <text x="350" y="330" text-anchor="middle" fill="white" font-family="monospace" font-size="13">PR(v) = (1−d)/n + d × Σ PR(u)/out-degree(u)</text>
+  <text x="350" y="354" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="11">d=0.85 (Google default) | (1−d)/n = baseline "everyone exists" score | d×Σ = link-based score</text>
+</svg>

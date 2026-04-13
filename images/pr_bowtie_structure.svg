@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#161b22;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="720" height="400" fill="url(#bg1)" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="17" font-weight="bold">The Web Bowtie Structure</text>
+
+  <!-- SCC center -->
+  <ellipse cx="360" cy="195" rx="90" ry="75" fill="rgba(83,216,251,0.1)" stroke="#53d8fb" stroke-width="2"/>
+  <text x="360" y="185" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="14" font-weight="bold">SCC</text>
+  <text x="360" y="205" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="11">(Strongly Connected</text>
+  <text x="360" y="220" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="11">Component)</text>
+  <text x="360" y="245" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="12" font-weight="bold">~28%</text>
+
+  <!-- IN component -->
+  <ellipse cx="130" cy="195" rx="85" ry="65" fill="rgba(46,204,113,0.08)" stroke="#2ecc71" stroke-width="1.5"/>
+  <text x="130" y="185" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="14" font-weight="bold">IN</text>
+  <text x="130" y="203" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="11">Can reach SCC</text>
+  <text x="130" y="218" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="11">but not vice versa</text>
+  <text x="130" y="240" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="12" font-weight="bold">~21%</text>
+  <!-- Arrow IN → SCC -->
+  <line x1="215" y1="195" x2="268" y2="195" stroke="#2ecc71" stroke-width="2.5" opacity="0.8"/>
+  <polygon points="268,190 280,195 268,200" fill="#2ecc71" opacity="0.8"/>
+
+  <!-- OUT component -->
+  <ellipse cx="590" cy="195" rx="85" ry="65" fill="rgba(233,69,96,0.08)" stroke="#e94560" stroke-width="1.5"/>
+  <text x="590" y="185" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="14" font-weight="bold">OUT</text>
+  <text x="590" y="203" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="11">Reachable from SCC</text>
+  <text x="590" y="218" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="11">but can't go back</text>
+  <text x="590" y="240" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="12" font-weight="bold">~21%</text>
+  <!-- Arrow SCC → OUT -->
+  <line x1="452" y1="195" x2="503" y2="195" stroke="#e94560" stroke-width="2.5" opacity="0.8"/>
+  <polygon points="503,190 515,195 503,200" fill="#e94560" opacity="0.8"/>
+
+  <!-- Tendrils -->
+  <ellipse cx="130" cy="80" rx="55" ry="30" fill="rgba(155,89,182,0.08)" stroke="#9b59b6" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="130" y="78" text-anchor="middle" fill="#9b59b6" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Tendrils</text>
+  <text x="130" y="93" text-anchor="middle" fill="#9b59b6" font-family="Arial,sans-serif" font-size="9">from IN</text>
+  <line x1="130" y1="110" x2="130" y2="130" stroke="#9b59b6" stroke-width="1" opacity="0.5" stroke-dasharray="3,3"/>
+
+  <ellipse cx="590" cy="80" rx="55" ry="30" fill="rgba(155,89,182,0.08)" stroke="#9b59b6" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="590" y="78" text-anchor="middle" fill="#9b59b6" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Tendrils</text>
+  <text x="590" y="93" text-anchor="middle" fill="#9b59b6" font-family="Arial,sans-serif" font-size="9">to OUT</text>
+  <line x1="590" y1="110" x2="590" y2="130" stroke="#9b59b6" stroke-width="1" opacity="0.5" stroke-dasharray="3,3"/>
+
+  <!-- Disconnected -->
+  <ellipse cx="360" cy="340" rx="55" ry="30" fill="rgba(136,136,136,0.08)" stroke="#888" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="360" y="338" text-anchor="middle" fill="#888" font-family="Arial,sans-serif" font-size="11" font-weight="bold">Disconnected</text>
+  <text x="360" y="353" text-anchor="middle" fill="#888" font-family="Arial,sans-serif" font-size="9">~30% isolated</text>
+
+  <!-- Tubes -->
+  <path d="M 215,155 C 280,80 440,80 505,155" fill="none" stroke="#ffcc00" stroke-width="1.5" stroke-dasharray="5,3" opacity="0.5"/>
+  <text x="360" y="100" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="10">Tubes (IN→OUT bypass)</text>
+
+  <!-- Bottom label -->
+  <rect x="60" y="380" width="600" height="15" fill="none"/>
+  <text x="360" y="392" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="11">A random surfer in SCC can reach 50% of the web (SCC + OUT) | Random page → ~30% chance of reaching SCC</text>
+</svg>
