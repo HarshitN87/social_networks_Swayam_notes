@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 400">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#16213e;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="payoffA" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e94560;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#c23152;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="payoffB" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f3460;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#533483;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="400" fill="url(#bg1)" rx="12"/>
+  <text x="350" y="35" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="18" font-weight="bold">The Coordination Game — Payoff Matrix</text>
+  
+  <!-- Matrix headers -->
+  <text x="350" y="70" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="13">Your Friend's Choice</text>
+  <text x="430" y="95" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="14" font-weight="bold">A (old)</text>
+  <text x="570" y="95" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="14" font-weight="bold">B (new)</text>
+  
+  <text x="280" y="130" text-anchor="end" fill="#aaa" font-family="Arial,sans-serif" font-size="13" transform="rotate(-90,245,150)">Your Choice</text>
+  <text x="320" y="140" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="14" font-weight="bold">A (old)</text>
+  <text x="320" y="200" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="14" font-weight="bold">B (new)</text>
+  
+  <!-- Matrix cells -->
+  <rect x="370" y="110" width="120" height="50" fill="url(#payoffA)" rx="6" opacity="0.9"/>
+  <text x="430" y="140" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="16" font-weight="bold">a, a</text>
+  
+  <rect x="510" y="110" width="120" height="50" fill="#333" rx="6" opacity="0.7"/>
+  <text x="570" y="140" text-anchor="middle" fill="#888" font-family="Arial,sans-serif" font-size="16">0, 0</text>
+  
+  <rect x="370" y="170" width="120" height="50" fill="#333" rx="6" opacity="0.7"/>
+  <text x="430" y="200" text-anchor="middle" fill="#888" font-family="Arial,sans-serif" font-size="16">0, 0</text>
+  
+  <rect x="510" y="170" width="120" height="50" fill="url(#payoffB)" rx="6" opacity="0.9"/>
+  <text x="570" y="200" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="16" font-weight="bold">b, b</text>
+  
+  <!-- Threshold formula -->
+  <rect x="50" y="260" width="600" height="110" fill="rgba(255,255,255,0.05)" rx="10"/>
+  <text x="350" y="290" text-anchor="middle" fill="#e94560" font-family="Arial,sans-serif" font-size="15" font-weight="bold">Threshold Derivation</text>
+  <text x="350" y="316" text-anchor="middle" fill="#53d8fb" font-family="monospace" font-size="14">Switch to B when: k·b > (n−k)·a</text>
+  <text x="350" y="340" text-anchor="middle" fill="#53d8fb" font-family="monospace" font-size="14">⟹ k/n > a/(a+b) = q  (the threshold)</text>
+  <text x="350" y="362" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="13">q = fraction of friends on B needed before you switch</text>
+</svg>

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380">
+  <defs>
+    <linearGradient id="bg2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#161b22;stop-opacity:1"/>
+    </linearGradient>
+  </defs>
+  <rect width="700" height="380" fill="url(#bg2)" rx="12"/>
+  <text x="350" y="32" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="17" font-weight="bold">Triadic Closure — How Triangles Form</text>
+
+  <!-- Before: Open Triad -->
+  <rect x="30" y="55" width="300" height="260" fill="rgba(255,255,255,0.03)" rx="10"/>
+  <text x="180" y="80" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="14" font-weight="bold">Before: Open Triad</text>
+
+  <circle cx="180" cy="130" r="22" fill="#53d8fb" opacity="0.85"/><text x="180" y="135" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">A</text>
+  <circle cx="90" cy="250" r="22" fill="#2ecc71" opacity="0.85"/><text x="90" y="255" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">B</text>
+  <circle cx="270" cy="250" r="22" fill="#e94560" opacity="0.85"/><text x="270" y="255" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">C</text>
+
+  <line x1="180" y1="152" x2="90" y2="228" stroke="#53d8fb" stroke-width="3" opacity="0.7"/>
+  <text x="120" y="185" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="11">Strong</text>
+  <line x1="180" y1="152" x2="270" y2="228" stroke="#53d8fb" stroke-width="3" opacity="0.7"/>
+  <text x="240" y="185" text-anchor="middle" fill="#53d8fb" font-family="Arial,sans-serif" font-size="11">Strong</text>
+
+  <!-- Dashed missing edge -->
+  <line x1="90" y1="250" x2="270" y2="250" stroke="#666" stroke-width="1.5" stroke-dasharray="6,4" opacity="0.5"/>
+  <text x="180" y="286" text-anchor="middle" fill="#888" font-family="Arial,sans-serif" font-size="11">B and C don't know each other (yet)</text>
+
+  <!-- Arrow -->
+  <text x="355" y="190" fill="#ffcc00" font-family="Arial,sans-serif" font-size="28">→</text>
+  <text x="355" y="215" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="10">Triadic</text>
+  <text x="355" y="228" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="10">Closure</text>
+
+  <!-- After: Closed Triad -->
+  <rect x="390" y="55" width="280" height="260" fill="rgba(255,255,255,0.03)" rx="10"/>
+  <text x="530" y="80" text-anchor="middle" fill="#aaa" font-family="Arial,sans-serif" font-size="14" font-weight="bold">After: Closed Triangle</text>
+
+  <circle cx="530" cy="130" r="22" fill="#53d8fb" opacity="0.85"/><text x="530" y="135" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">A</text>
+  <circle cx="440" cy="250" r="22" fill="#2ecc71" opacity="0.85"/><text x="440" y="255" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">B</text>
+  <circle cx="620" cy="250" r="22" fill="#e94560" opacity="0.85"/><text x="620" y="255" text-anchor="middle" fill="white" font-family="Arial,sans-serif" font-size="14" font-weight="bold">C</text>
+
+  <line x1="530" y1="152" x2="440" y2="228" stroke="#53d8fb" stroke-width="3" opacity="0.7"/>
+  <line x1="530" y1="152" x2="620" y2="228" stroke="#53d8fb" stroke-width="3" opacity="0.7"/>
+  <line x1="440" y1="250" x2="620" y2="250" stroke="#2ecc71" stroke-width="3" opacity="0.9"/>
+  <text x="530" y="286" text-anchor="middle" fill="#2ecc71" font-family="Arial,sans-serif" font-size="11" font-weight="bold">New edge forms → Triangle complete</text>
+
+  <!-- Bottom rule -->
+  <rect x="40" y="330" width="620" height="38" fill="rgba(255,204,0,0.06)" rx="6"/>
+  <text x="350" y="354" text-anchor="middle" fill="#ffcc00" font-family="Arial,sans-serif" font-size="12" font-weight="bold">Strong Triadic Closure: If A↔B strong AND A↔C strong → B and C MUST have at least a weak tie</text>
+</svg>
