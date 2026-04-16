@@ -2,20 +2,20 @@
 
 ## 1. Introduction to Signed Complete Graphs
 
-To understand and model the complex dynamics of factions in communities, workplaces, or international diplomacy, we utilize a **complete signed network** model. 
+To understand and model the complex dynamics of factions in communities, workplaces, high schools, or international diplomacy, we utilize a **complete signed network** model. 
 
-* **Complete Graph:** A network where every single node is connected to every other node. This represents an environment where everyone has a stance or relationship regarding everyone else.
+* **Complete Graph:** A network where every single node is connected to every other node. This represents an environment where everyone has a stance, opinion, or relationship regarding everyone else (like a tight-knit office or a cohort of students).
 * **Signed Network:** Each edge in the network is assigned a positive ($+$) or negative ($-$) value.
-    * **Positive Ties ($+$):** Represent friendship, collaboration, trust, or alliances.
-    * **Negative Ties ($-$):** Represent hostility, avoidance, distrust, or enmity.
+    * **Positive Ties ($+$):** Represent friendship, collaboration, trust, alliances, or endorsement.
+    * **Negative Ties ($-$):** Represent hostility, avoidance, distrust, enmity, or conflict.
 
 ---
 
-## 2. Triadic Stability: The Psychological Tension
+## 2. Triadic Stability: The Psychology of Cognitive Dissonance
 
-The fundamental unit of analysis in this theory is the **triangle**—any group of three nodes and the three edges connecting them. Structural balance depends exclusively on whether these individual triangles are psychologically **stable** or **unstable**.
+The fundamental unit of analysis in this theory is the **triangle**—any group of three nodes and the three edges connecting them. Structural balance theory is rooted in social psychology, specifically **Cognitive Dissonance**. It argues that humans are deeply uncomfortable with contradictory relationships and will actively change their social ties to eliminate that psychological tension.
 
-> **The Quick Rule for Stability:** Count the negative edges. A triangle is stable if it has **0 or 2 negative edges**. It is fundamentally unstable if it has **1 or 3 negative edges**.
+> **The Quick Rule for Stability:** Count the negative edges. A triangle is stable if it has an **even number** of negative edges (**0 or 2**). It is fundamentally unstable if it has an **odd number** of negative edges (**1 or 3**).
 
 ![Triadic Stability States](images/image14.png)
 
@@ -23,39 +23,45 @@ The fundamental unit of analysis in this theory is the **triangle**—any group 
 
 #### 1. The Mutual Friends (Stable)
 * **Edges:** $+ + +$ (0 negatives)
-* **Logic:** "The friend of my friend is my friend." This configuration creates zero psychological friction, as everyone in the triad supports one another.
+* **Logic:** "The friend of my friend is my friend." 
+* **Psychology:** Total harmony. You love Alice, you love Bob, and Alice loves Bob. It's a fun group chat. There is zero psychological friction.
 
 #### 2. The Shared Enemy (Stable)
 * **Edges:** $+ - -$ (2 negatives)
-* **Logic:** "The enemy of my enemy is my friend." Two friends are bonded together by their mutual opposition to a third party. No tension exists within this alliance because the hostility is directed safely outward.
+* **Logic:** "The enemy of my enemy is my friend." 
+* **Psychology:** Two friends are bonded together by their mutual opposition to a third party. No tension exists within this alliance because the hostility is directed safely outward. Bonding over a shared enemy is one of the most powerful and stabilizing sociological mechanisms.
 
 #### 3. Conflicting Loyalties (Unstable)
 * **Edges:** $+ + -$ (1 negative)
-* **Logic:** Two enemies share a common friend. This is the classic "choose me" scenario. The central node faces intense, unsustainable pressure to either mediate the conflict between their friends or side with one and drop the other.
+* **Logic:** Two enemies share a common friend. 
+* **Psychology:** The classic "choose me" scenario. You love Alice and you love Bob, but Alice and Bob absolutely despise each other. This is incredibly stressful! The central node faces intense, unsustainable cognitive dissonance. They must either constantly mediate the conflict (which is exhausting) or eventually pick a side and sever ties with the other friend.
 
 #### 4. The Three-way War (Unstable)
 * **Edges:** $- - -$ (3 negatives)
-* **Logic:** Three mutual enemies. In high-tension environments, this state is volatile. Eventually, two of the entities will recognize that they share a common opponent, leading them to form an alliance. This flips one ($-$) edge to a ($+$), stabilizing the triangle into the "Shared Enemy" state.
+* **Logic:** Three mutual enemies. 
+* **Psychology:** Pure chaos. In high-tension environments, this state is volatile. Because dealing with threats on multiple fronts is costly, two of the entities will eventually realize they have more to gain by teaming up to oppose the third. They form a strategic alliance, flipping one ($-$) edge to a ($+$), stabilizing the triangle into the "Shared Enemy" state.
 
 ---
 
-## 3. The Balance Theorem
+## 3. System Dynamics and The Balance Theorem
 
-Local rules of triadic stability logically dictate the global structure of the entire network.
+Networks do not sit still. When a network contains unstable triangles, the psychological tension forces edges to "flip" (friends become enemies, or enemies become friends). This is an iterative process that ripples out until the graph achieves equilibrium.
 
-**The Balance Theorem states:** If a signed complete graph is structurally balanced (meaning it contains **zero** unstable triangles), the entire mathematically network must partition into exactly one of two configurations:
+When equilibrium is finally reached, local rules of triadic stability dictate the global structure of the entire network.
 
-1.  **A single unified coalition** of universal friendship (all edges are $+$).
+**The Balance Theorem states:** If a signed complete graph is structurally balanced (meaning it contains **zero** unstable triangles), the mathematics rigidly enforce that the entire network must partition into exactly one of two configurations:
+
+1.  **A single unified coalition** of universal peace (all edges are $+$).
 2.  **Exactly two mutually hostile factions.**
 
 ![Global Faction Partition](images/image15.png)
 
-This theorem explains why massive group conflicts or international wars almost exclusively evolve into **bipolar fronts** (Faction A vs. Faction B) rather than sustained three-way or four-way free-for-alls. 
+This theorem perfectly explains historical macro-phenomena. For example, in the years leading up to World War I, Europe's intricate web of multi-directional treaties, betrayals, and rivalries (full of unstable triads) systematically resolved itself exactly as the Balance Theorem predicts: splitting Europe cleanly into two giant, mutually hostile camps (The Allied Powers vs. The Central Powers). Sustained three-way or four-way free-for-alls are mathematically forbidden by structural balance.
 
-### Faction Mathematics: Case Study
+### Faction Mathematics: Cross-Product Calculation
 Inside a faction, every pair is a friend (positive edges). Across the divide between factions, every pair is an enemy (negative edges). Any triangle you draw will either be entirely within one faction ($+ + +$) or straddle the divide with two members on one side and one on the other ($+ - -$).
 
-If a company of 30 employees fractures cleanly into **Faction A (18 employees)** and **Faction B (12 employees)**, the total number of negative edges required for perfect balance is simply the cross-product:
+If a company of 30 employees fractures cleanly into **Faction A (18 employees)** and **Faction B (12 employees)**, the total number of negative edges in the entire social network is always the cross-product of the faction sizes:
 
 $$
 \text{Total Negative Edges} = 18 \times 12 = 216
@@ -65,9 +71,11 @@ $$
 
 ## 4. The Proof of the Balance Theorem
 
-How do we mathematically prove that any balanced complete graph forces a partition into two clean camps? The proof is elegant: you only need to pick one arbitrary node, **X**, and let logic do the rest.
+How do we mathematically prove that any balanced complete graph forces a partition into precisely two clean camps? The proof is elegant: you only need to pick one arbitrary node, **X**, and let logic do the rest.
 
 ![Proof Strategy Diagram](images/image16.png)
+
+We categorize everyone in the network as either a Friend of X (Team A) or an Enemy of X (Team B).
 
 **Step 1: Inside Team A (Friends of X)**
 Take two nodes, $Y$ and $Z$, from Team A. Because X is friends with both, the edges X-Y and X-Z are positive. If $Y$ and $Z$ were enemies, the triangle X-Y-Z would be $+ + -$, which is unstable. Therefore, **$Y$ and $Z$ must be friends**. Team A is universally positive internally.
@@ -76,7 +84,7 @@ Take two nodes, $Y$ and $Z$, from Team A. Because X is friends with both, the ed
 Take two nodes, $U$ and $V$, from Team B. X is enemies with both (edges X-U and X-V are negative). If $U$ and $V$ were also enemies, the triangle X-U-V would be $- - -$, which is unstable. For the triangle to be stable ($+ - -$), **$U$ and $V$ must be friends**. Team B is also universally positive internally.
 
 **Step 3: Across the Divide**
-Wait, what about cross-group relations? Take $Y$ (from Team A) and $U$ (from Team B). X is friends with $Y$ ($+$) and enemies with $U$ ($-$). If $Y$ and $U$ were friends ($+$), the triangle X-Y-U would be $+ + -$, which is unstable. Therefore, **$Y$ and $U$ must be enemies**. All cross-faction edges are strictly negative.
+What about cross-group relations? Take $Y$ (from Team A) and $U$ (from Team B). X is friends with $Y$ ($+$) and enemies with $U$ ($-$). If $Y$ and $U$ were friends ($+$), the triangle X-Y-U would be $+ + -$, which is unstable. Therefore, **$Y$ and $U$ must be enemies**. All cross-faction edges are strictly negative.
 
 Since X was chosen arbitrarily, this exact logic applies from any starting node. The network always resolves cleanly into two polarized camps.
 
